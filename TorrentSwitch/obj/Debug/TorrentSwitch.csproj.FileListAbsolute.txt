@@ -54,3 +54,11 @@ C:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\settings_window.g
 C:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\settings_window.baml
 X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Newtonsoft.Json.dll
 X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Newtonsoft.Json.xml
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.dll
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.SqlServer.dll
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.dll
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.EF6.dll
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.Linq.dll
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.xml
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.SqlServer.xml
+X:\programming_future\CloudStation\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.xml

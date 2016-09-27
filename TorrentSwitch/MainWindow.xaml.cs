@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,10 +13,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
+using System.Data.SQLite;
 
 namespace TorrentSwitch
 {
@@ -24,7 +27,7 @@ namespace TorrentSwitch
     /// 
 
     /* ADD
-     * Data saving for manager settings
+     * Data saving for manager settings  //in progress
      * Deluge support
      * Transmission support
      * Magnet link support
@@ -38,7 +41,7 @@ namespace TorrentSwitch
      * size for multi torrents
      * GUI scalability                     ///DONE
      * Drop to load torrent                ///DONE
-     * Utorrent add torrent
+     * Utorrent add torrent                 
      * Index reload if torrent removed from dataGrid
     */
 
@@ -59,7 +62,7 @@ namespace TorrentSwitch
                 public string port;
         
             }
-
+        
 
         
         public partial class MainWindow : MetroWindow
@@ -70,19 +73,29 @@ namespace TorrentSwitch
                 InitializeComponent();
                 LoadSettings();
                 ArgumentLoader();
+                sqlite_database.check_for_database();
                 
-                
-                
+
+
             }
 
         public void LoadSettings()
         {
-            SettingsClass default_account = new SettingsClass();
-            default_account.Type = ManagerType.uTorrent;
-            default_account.ip = "127.0.0.1";
-            default_account.port = "80";
-            default_account.user = "admin";
-            default_account.password = "admin";
+            sqlite_database.check_for_database();
+            Debug.WriteLine("over_sqlite");
+
+
+            
+
+            //SettingsClass default_account = new SettingsClass();
+            //default_account.Type = ManagerType.uTorrent;
+            //default_account.ip = "127.0.0.1";
+            //default_account.port = "80";
+            //default_account.user = "admin";
+            //default_account.password = "admin";
+            //Dictionary<string, SettingsClass> dictionary = new Dictionary<string, SettingsClass>();
+    
+            //if (dictionary.TryGetValue("utorrent", out SettingsClass()));    
 
             bool settings_available = true;
             if (settings_available)
@@ -177,7 +190,13 @@ namespace TorrentSwitch
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            get_torrent("one.torrent");
+            //SQLiteConnection m_create_structure;
+            //string sql = "insert into managers (name, user , pass, ip , port , type)  values ('default', 'admin','admin','127.0.0.1','8787','uTorrent')";
+            //m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
+            //m_create_structure.Open();
+            //SQLiteCommand command = new SQLiteCommand(sql, m_create_structure);
+            //command.ExecuteNonQuery();
+            //get_torrent("one.torrent");
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)

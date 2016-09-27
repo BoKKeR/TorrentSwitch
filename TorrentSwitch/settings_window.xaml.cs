@@ -19,10 +19,16 @@ namespace TorrentSwitch
     /// Interaction logic for settings_window.xaml
     /// </summary>
     public partial class settings_window : MetroWindow
+
     {
         public settings_window()
         {
             InitializeComponent();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+
         }
     }
 }

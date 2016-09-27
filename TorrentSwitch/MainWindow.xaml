@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TorrentSwitch"
+        xmlns:properties="clr-namespace:TorrentSwitch.Properties"
         mc:Ignorable="d"
         
         Title="TorrentSwitch" Height="350" Width="525"
@@ -15,7 +16,17 @@
         
         >
 
+<Controls:MetroWindow.Flyouts>
+    <Controls:FlyoutsControl>
+            <Controls:Flyout Position="Right" 
+                             AreAnimationsEnabled="True"
+                             Header="Settings"
+                             IsOpen="{Binding IsSettingsFlyoutOpen, Mode=TwoWay}">
 
+            
+        </Controls:Flyout>
+    </Controls:FlyoutsControl>
+</Controls:MetroWindow.Flyouts>
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -35,6 +46,7 @@
                   Loaded="DataGrid_Loaded" 
                   GridLinesVisibility="All" 
                   AllowDrop="True"
+                  BorderThickness="1"
 
                   >
                 <DataGrid.Columns>
