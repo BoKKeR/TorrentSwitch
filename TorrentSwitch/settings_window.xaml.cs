@@ -30,5 +30,10 @@ namespace TorrentSwitch
         {
 
         }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

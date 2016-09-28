@@ -14,10 +14,10 @@ using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data.SQLite;
+using TorrentSwitch.managers;
 
 namespace TorrentSwitch
 {
@@ -84,19 +84,6 @@ namespace TorrentSwitch
             sqlite_database.check_for_database();
             Debug.WriteLine("over_sqlite");
 
-
-            
-
-            //SettingsClass default_account = new SettingsClass();
-            //default_account.Type = ManagerType.uTorrent;
-            //default_account.ip = "127.0.0.1";
-            //default_account.port = "80";
-            //default_account.user = "admin";
-            //default_account.password = "admin";
-            //Dictionary<string, SettingsClass> dictionary = new Dictionary<string, SettingsClass>();
-    
-            //if (dictionary.TryGetValue("utorrent", out SettingsClass()));    
-
             bool settings_available = true;
             if (settings_available)
             {
@@ -115,7 +102,7 @@ namespace TorrentSwitch
         public void UpdateText(string Name, string Size, string first)
         {
             int row = Grid.GetRow(dataGrid);
-            dataGrid.Items.Add(new MyData {ID = dataGrid.FrozenColumnCount + 1, Name = Name, Size = Size, first = "Deluge"});
+            dataGrid.Items.Add(new MyData {Name = Name, Size = Size, first = "Deluge"});
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -180,7 +167,6 @@ namespace TorrentSwitch
 
         public struct MyData
         {
-            public int ID { set; get; }
             public string Name { set; get; }
             public string Size { set; get; }
             public string first { set; get; }
@@ -190,13 +176,7 @@ namespace TorrentSwitch
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            //SQLiteConnection m_create_structure;
-            //string sql = "insert into managers (name, user , pass, ip , port , type)  values ('default', 'admin','admin','127.0.0.1','8787','uTorrent')";
-            //m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
-            //m_create_structure.Open();
-            //SQLiteCommand command = new SQLiteCommand(sql, m_create_structure);
-            //command.ExecuteNonQuery();
-            //get_torrent("one.torrent");
+
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -214,10 +194,6 @@ namespace TorrentSwitch
         {
             settings_window set_win = new settings_window();
             set_win.Show();
-            //int i = dataGrid.Items.Count;
-            //Debug.Write(i);
-            //Window settings_window1 = new TorrentSwitch.settings();
-            //settings_window1.Show;
 
         }
 
@@ -254,39 +230,11 @@ namespace TorrentSwitch
         {
             
         }
-        public void Utorrent(string ip, string port ,string username, string password)
-        {
-            string base_url = "http://" + ip + ":" + port + "/gui/";
-            string hash_example = "9F9165D9A281A9B8E782CD5176BBCC8256FD1871";
-            string token = null;
-            string token_urlAddress = base_url + "token.html";
-            CookieAwareWebClient client = new CookieAwareWebClient() { Credentials = new NetworkCredential("admin", "admin") }; ;
-            StreamReader Reader = new StreamReader(client.OpenRead(token_urlAddress));
-            string read_token = Reader.ReadToEnd();
-            token = Regex.Replace(read_token, "<.*?>", String.Empty);
-            Debug.WriteLine(token);
 
-
-            //string sURL = "?action=start&hash=" + hash_example + "&token=" + token;
-            string sURL = base_url + "?action=add-file";
-            /* multipart / form - data
-               file, torrent_file 
-            */
-            string test_url = base_url + "?action=getsettings&token=" + token;
-            Debug.WriteLine(sURL);
-            client.Headers.Add("Content-Type", "multipart/form-data");
-            var reqparm = new System.Collections.Specialized.NameValueCollection();
-            reqparm.Add("file", "torrent_file=one.torrent");
-            string json = @"{'file':[{'torrent_file':'C:/Bork/one.torrent'}]}";
-            byte[] responsebytes = client.UploadData(sURL, "POST", Encoding.Default.GetBytes(json));//Encoding.Default.GetBytes("{'file' : 'torrent_file' : 'one.torrent'}"));
-            string responsebody = Encoding.UTF8.GetString(responsebytes);
-            
-            Debug.WriteLine(responsebody);
-        }
 
         private void uTorrent_test_Click(object sender, RoutedEventArgs e)
         {
-        Utorrent("127.0.0.1","8787","admin","admin");
+        managers.uTorrent.get_token("127.0.0.1","8787","admin","admin");
         }
 
     }
