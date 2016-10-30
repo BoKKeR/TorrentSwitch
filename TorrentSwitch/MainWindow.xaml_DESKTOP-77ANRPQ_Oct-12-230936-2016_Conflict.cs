@@ -71,7 +71,7 @@ namespace TorrentSwitch
                 InitializeComponent();
                 LoadSettings();
                 ArgumentLoader();
-                SqliteDatabase.check_for_database();
+                sqlite_database.check_for_database();
                 
 
 
@@ -79,7 +79,7 @@ namespace TorrentSwitch
 
         public void LoadSettings()
         {
-            SqliteDatabase.check_for_database();
+            sqlite_database.check_for_database();
             Debug.WriteLine("over_sqlite");
 
             bool settings_available = true;
@@ -208,8 +208,6 @@ namespace TorrentSwitch
             
         }
 
-
-
         public class CookieAwareWebClient : WebClient
         {
             private readonly CookieContainer m_container = new CookieContainer();
@@ -234,7 +232,8 @@ namespace TorrentSwitch
 
         private void uTorrent_test_Click(object sender, RoutedEventArgs e)
         {
-            managers.uTorrent.send_magnet_uri("127.0.0.1","8787","admin","admin", "magnet:?xt=urn:btih:9F9165D9A281A9B8E782CD5176BBCC8256FD1871&dn=ubuntu-16.04.1-desktop-amd64.iso&tr=http%3a%2f%2ftorrent.ubuntu.com%3a6969%2fannounce&tr=http%3a%2f%2fipv6.torrent.ubuntu.com%3a6969%2fannounce");
+        
+            managers.uTorrent.get_token("127.0.0.1","8787","admin","admin");
         }
 
     }

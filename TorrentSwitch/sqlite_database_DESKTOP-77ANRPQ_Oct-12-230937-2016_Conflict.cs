@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TorrentSwitch
 {
-    static class SqliteDatabase
+    static class sqlite_database
     {
         public static void check_for_database()
         {
