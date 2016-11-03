@@ -18,13 +18,8 @@
 
 <Controls:MetroWindow.Flyouts>
     <Controls:FlyoutsControl>
-            <Controls:Flyout Position="Right" 
-                             AreAnimationsEnabled="True"
-                             Header="Settings"
-                             IsOpen="{Binding IsSettingsFlyoutOpen, Mode=TwoWay}">
-
-            
-        </Controls:Flyout>
+            <Controls:Flyout Position="Right" AreAnimationsEnabled="True" Header="Settings" IsOpen="{Binding IsSettingsFlyoutOpen, Mode=TwoWay}">
+            </Controls:Flyout>
     </Controls:FlyoutsControl>
 </Controls:MetroWindow.Flyouts>
 
@@ -46,7 +41,7 @@
                   Loaded="DataGrid_Loaded" 
                   GridLinesVisibility="All" 
                   AllowDrop="True"
-                  BorderThickness="1"
+                  BorderThickness="1" CanUserReorderColumns="False" MinColumnWidth="10"
 
                   >
                 <DataGrid.Columns>
@@ -58,7 +53,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     
-                    <DataGridTextColumn Width="300" Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Width="60" Header="Size" Binding="{Binding Size}"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>

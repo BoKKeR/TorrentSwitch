@@ -33,14 +33,16 @@ namespace TorrentSwitch
      * Debug window
      * Color options
      * color/icon options for metro
+     * path support
+     * label support
     */
 
     /* FIX
      * size for multi torrents
      * GUI scalability                     ///DONE
      * Drop to load torrent                ///DONE
-     * Utorrent add torrent                 
-     * Index reload if torrent removed from dataGrid
+     * Utorrent add torrent                
+     * Utorrent add magnet links           ///DONE 
     */
 
 
@@ -69,25 +71,11 @@ namespace TorrentSwitch
             {
 
                 InitializeComponent();
-                LoadSettings();
                 ArgumentLoader();
                 SqliteDatabase.check_for_database();
-                
-
-
             }
 
-        public void LoadSettings()
-        {
-            SqliteDatabase.check_for_database();
-            Debug.WriteLine("over_sqlite");
 
-            bool settings_available = true;
-            if (settings_available)
-            {
-                
-            }
-        }
 
         public void get_torrent(string torrent_file)
         {
@@ -105,7 +93,7 @@ namespace TorrentSwitch
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            UpdateText(TorrentLoader("Naid.torrent").Item1, "a", "a");
+            get_torrent("one.torrent");
         }
         public static Boolean torrent_check(string torrent)
         {

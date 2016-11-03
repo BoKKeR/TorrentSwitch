@@ -24,7 +24,10 @@ namespace TorrentSwitch
         public settings_window()
         {
             InitializeComponent();
+            SqliteDatabase.load_database();
         }
+
+
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -33,7 +36,14 @@ namespace TorrentSwitch
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
+            Add_window add_manager = new Add_window();
+            add_manager.Show();
+            SqliteDatabase.add_entry("xxx", "zzz", "444", "awwa", "24242", "utorrent");
+        }
 
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

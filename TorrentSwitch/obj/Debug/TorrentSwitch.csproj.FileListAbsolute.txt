@@ -111,3 +111,16 @@ C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.xml
 C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.xml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Catel.Core.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Orc.FileAssociation.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Catel.Core.pdb
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Catel.Core.xml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Orc.FileAssociation.pdb
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Orc.FileAssociation.xml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\de\Orc.FileAssociation.resources.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\es\Orc.FileAssociation.resources.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\fr\Orc.FileAssociation.resources.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\nl\Orc.FileAssociation.resources.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\ru\Orc.FileAssociation.resources.dll
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.g.cs
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.baml
