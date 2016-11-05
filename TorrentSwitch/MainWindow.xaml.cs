@@ -73,6 +73,7 @@ namespace TorrentSwitch
                 InitializeComponent();
                 ArgumentLoader();
                 SqliteDatabase.check_for_database();
+                SqliteDatabase.load_database();
             }
 
 
@@ -85,16 +86,17 @@ namespace TorrentSwitch
             UpdateText(TorrentLoader(torrent_file).Item1, TorrentLoader(torrent_file).Item2,  "a");
             }
         }
-        public void UpdateText(string Name, string Size, string first)
-        {
-            int row = Grid.GetRow(dataGrid);
-            dataGrid.Items.Add(new MyData {Name = Name, Size = Size, first = "Deluge"});
 
+        public void UpdateText(string Name, string Size, string first)
+        { 
+            dataGrid.Items.Add(new torrent_data {Name = Name, Size = Size, first = "Deluge"});
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             get_torrent("one.torrent");
         }
+
         public static Boolean torrent_check(string torrent)
         {
             if (torrent.EndsWith(".torrent") && (File.Exists(torrent)))
@@ -151,36 +153,22 @@ namespace TorrentSwitch
             return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
         }
 
-        public struct MyData
+        public struct torrent_data
         {
             public string Name { set; get; }
             public string Size { set; get; }
-            public string first { set; get; }
-            
+            public string first { set; get; } 
         }
 
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void remove_me(object sender, RoutedEventArgs e)
         {
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
         }
 
-
-
-        private void settings_button(object sender, RoutedEventArgs e)
+        private void client_button(object sender, RoutedEventArgs e)
         {
             settings_window set_win = new settings_window();
             set_win.Show();
-
         }
 
         private void dataGrid_Drop(object sender, DragEventArgs e)
@@ -195,8 +183,6 @@ namespace TorrentSwitch
             }
             
         }
-
-
 
         public class CookieAwareWebClient : WebClient
         {
@@ -213,12 +199,6 @@ namespace TorrentSwitch
                 return request;
             }
         }
-
-        public void Deluge()
-        {
-            
-        }
-
 
         private void uTorrent_test_Click(object sender, RoutedEventArgs e)
         {

@@ -35,14 +35,14 @@ namespace TorrentSwitch
             var m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_create_structure.Open();
             string sql = "create table managers " +
-             "(name varchar(20), " +
-             "user varchar(20), " +
-             "pass varchar(20), " +
-             "ip varchar(20), " +
+             "(ip varchar(20), " +
              "port varchar(20), " +
+             "username varchar(20), " +
+             "password varchar(20), " +
+             "alias varchar(20), " +
+             "type varchar(20), " +
              "path varchar(20), " +
-             "label varchar(20), " +
-             "type varchar(20))";
+             "label varchar(20))";
             SQLiteCommand command = new SQLiteCommand(sql, m_create_structure);
             command.ExecuteNonQuery();
             m_create_structure.Close();
@@ -60,18 +60,18 @@ namespace TorrentSwitch
                 Console.WriteLine("Name: " + reader["name"] + "\tuser: " + reader["user"]);
         }
 
-        public static void add_entry(string alias, string user, string password, string ip, string port, string type, string path, string label)
+        public static void add_entry(string ip, string port, string username, string password, string alias, string type, string path, string label)
         {
             var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_write_entry.Open();
-            string sql = "insert into managers (name, user , pass, ip , port , type)  values " +
-                         "('" + alias + "', " +
-                         "'" + user + "'," +
-                         "'" + password + "'," +
-                         "'" + ip + "'," +
+            string sql = "insert into managers (ip, port , username, password , alias , type, path, label)  values " +
+                         "('" + ip + "', " +
                          "'" + port + "'," +
-                         "'" + type + "')" +
-                         "'" + path + "')" +
+                         "'" + username + "'," +
+                         "'" + password + "'," +
+                         "'" + alias + "'," +
+                         "'" + type + "'," +
+                         "'" + path + "'," +
                          "'" + label + "')";
             SQLiteCommand command = new SQLiteCommand(sql, m_write_entry);
             command.ExecuteNonQuery();
@@ -92,13 +92,21 @@ namespace TorrentSwitch
         {
             var m_read_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_read_entry.Open();
-            string sql = "select * from managers order by name desc";
+            string sql = "select * from managers order by alias desc";
             SQLiteCommand command = new SQLiteCommand(sql, m_read_entry);
             SQLiteDataReader reader = command.ExecuteReader();
-            
+            settings_window window = new settings_window();
             while (reader.Read())
             {
-                Debug.WriteLine("\nname: " + reader["name"] + "\nuser: " + reader["user"]);
+                Debug.WriteLine("\nalias: " + reader["alias"] + "\nuser: " + reader["username"]);
+                string status = "On";
+                string host = reader["alias"] + "//" + reader["username"] + "@" + reader["ip"] + ":" + reader["port"];
+                //string client_type = reader["type"];
+                string client_type = "uTorrent";
+                new settings_window.manager_data { status = status, host = host, client_type = client_type };
+
+
+                window.AddManager(status, host, host);
             }
 
         }

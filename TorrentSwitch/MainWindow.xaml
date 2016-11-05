@@ -25,7 +25,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="Settings" Click="settings_button" />
+            <Button Content="Clients" Click="client_button" />
 
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
@@ -33,17 +33,13 @@
     <Grid>
         <Grid Name="MainGrid" Grid.ColumnSpan="5">
             <Button x:Name="uTorrent_test" Content="uTorrent" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" Click="uTorrent_test_Click" />
-            <Button x:Name="button" Content="Button" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="button_Click"/>
             <DataGrid x:Name="dataGrid" 
                   CurrentColumn="{Binding Column}"
                   Drop="dataGrid_Drop"
                   Margin="10,10,10,35" 
-                  Loaded="DataGrid_Loaded" 
                   GridLinesVisibility="All" 
                   AllowDrop="True"
-                  BorderThickness="1" CanUserReorderColumns="False" MinColumnWidth="10"
-
-                  >
+                  BorderThickness="1" CanUserReorderColumns="False" MinColumnWidth="10">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >

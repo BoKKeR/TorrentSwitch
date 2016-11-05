@@ -27,13 +27,14 @@ namespace TorrentSwitch
         }
 
 
-        private void check_fields()
+        private void validate_fields()
         {
             
         }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            SqliteDatabase.add_entry(label_textBox.Text, hostname_textBox.Text, port_textBox.Text, username_textBox.Text, passwordBox.Password, Type.Text, path_textBox.Text, alias_textBox.Text);
+            SqliteDatabase.add_entry(label_textBox.Text, hostname_textBox.Text, port_textBox.Text, username_textBox.Text, passwordBox.Password, Type.Text, Custom_Path.Text, Label.Text);
         }
     }
 }

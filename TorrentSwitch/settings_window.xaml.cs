@@ -24,21 +24,30 @@ namespace TorrentSwitch
         public settings_window()
         {
             InitializeComponent();
-            SqliteDatabase.load_database();
         }
-
-
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-
+            
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             Add_window add_manager = new Add_window();
             add_manager.Show();
-            SqliteDatabase.add_entry("xxx", "zzz", "444", "awwa", "24242", "utorrent");
+        }
+
+        public struct manager_data
+        {
+            public string status { set; get; }
+            public string host { set; get; }
+            public string client_type { set; get; }
+        }
+        
+        public void AddManager(string status, string host, string client_type)
+        {
+            dataGrid.Items.Add(new manager_data {status = status, host = host, client_type = client_type});
+            //dataGrid.Items.Add(status, host, client_type);
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
