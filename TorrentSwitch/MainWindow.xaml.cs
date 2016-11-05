@@ -118,14 +118,25 @@ namespace TorrentSwitch
             }
         }
 
+
+        private Torrent _torrent;
+
+        public Torrent torrent { get; set; }
+
         public Tuple<string, string> TorrentLoader(string torrent_file)
         {
-            
-            
             Debug.WriteLine(torrent_file);
             var parser = new BencodeParser();
-            var torrent = parser.Parse<Torrent>(torrent_file);
 
+            try
+            {
+                 this.torrent = parser.Parse<Torrent>(torrent_file);
+            }
+            catch (Exception)
+            {
+                //ADD DIALOG 
+
+            }
 
             switch (torrent.FileMode)
             {
@@ -134,7 +145,7 @@ namespace TorrentSwitch
                 case TorrentFileMode.Multi:
                     return Tuple.Create(torrent.Files.DirectoryName, "N/A"); ///FIX SIZE
                 default:
-                    return Tuple.Create("Not recognized","Not recognized");
+                    return Tuple.Create("Not recognized", "Not recognized");
             }
         }
 
