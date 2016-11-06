@@ -8,7 +8,7 @@
         xmlns:properties="clr-namespace:TorrentSwitch.Properties"
         mc:Ignorable="d"
         
-        Title="TorrentSwitch" Height="350" Width="525"
+        Title="TorrentSwitch" Height="342.135" Width="525"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
@@ -32,7 +32,7 @@
 
     <Grid>
         <Grid Name="MainGrid" Grid.ColumnSpan="5">
-            <Button x:Name="uTorrent_test" Content="uTorrent" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" Click="uTorrent_test_Click" />
+            <Button x:Name="uTorrent_test" Content="uTorrent" HorizontalAlignment="Left" Margin="10,0,0,5" VerticalAlignment="Bottom" Width="75" Click="uTorrent_test_Click" />
             <DataGrid x:Name="dataGrid" 
                   CurrentColumn="{Binding Column}"
                   Drop="dataGrid_Drop"

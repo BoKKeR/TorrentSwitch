@@ -96,6 +96,8 @@ namespace TorrentSwitch
             SQLiteCommand command = new SQLiteCommand(sql, m_read_entry);
             SQLiteDataReader reader = command.ExecuteReader();
             settings_window window = new settings_window();
+
+
             while (reader.Read())
             {
                 Debug.WriteLine("\nalias: " + reader["alias"] + "\nuser: " + reader["username"]);
@@ -104,7 +106,7 @@ namespace TorrentSwitch
                 //string client_type = reader["type"];
                 string client_type = "uTorrent";
                 new settings_window.manager_data { status = status, host = host, client_type = client_type };
-
+                
 
                 window.AddManager(status, host, host);
             }

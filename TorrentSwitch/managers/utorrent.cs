@@ -14,6 +14,9 @@ using System.Web;
 
 namespace TorrentSwitch.managers
 {
+    /// <summary>
+    /// Here is uTorrent client managed, both sending a torrent file and a magnet link. And checking the status
+    /// </summary>
     class uTorrent
     {
 
@@ -41,7 +44,7 @@ namespace TorrentSwitch.managers
             ///SEND TORRENT FILE
             //string sURL = base_url + "?action=add-url&s=magnet:?xt=urn:btih:f9e40a2663ea396d631e1cb2a0b5d10b0f322bd9&dn=Carson.Daly.2016.10.10.Mekhi.Phifer.480p.x264-mSD&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
 
-            
+
 
 
 
@@ -67,9 +70,9 @@ namespace TorrentSwitch.managers
             // easily add HTTP Headers
             request.AddHeader("header", "value");
             //request.AddFile();
-            
+
             // add files to upload (works with compatible verbs)
-            
+
             IRestResponse response = client.Execute(request);
             var content = response.Content;
 
@@ -104,6 +107,27 @@ namespace TorrentSwitch.managers
             ///SEND MAGNET LINK
             string add_url = base_url + "?action=add-url&s=" + WebUtility.UrlEncode(magnet) + "&token=" + token;
             client.OpenRead(add_url);
+        }
+
+        public static bool check_status(string ip, string port, string username, string password)
+        {
+            string base_url = "http://" + ip + ":" + port + "/gui/";
+
+            ///READ TOKEN
+            string token_urlAddress = base_url + "token.html";
+
+            MainWindow.CookieAwareWebClient client = new MainWindow.CookieAwareWebClient();
+            client.Credentials = new NetworkCredential(username, password);
+
+            try
+            {
+                client.OpenRead(token_urlAddress);
+            }
+            catch(WebException)
+            {
+                return false;
+            }
+            return true;
         }
 
     }

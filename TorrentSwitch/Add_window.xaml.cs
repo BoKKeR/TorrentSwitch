@@ -19,7 +19,7 @@ namespace TorrentSwitch
     /// <summary>
     /// Interaction logic for Add_window.xaml
     /// </summary>
-    public partial class Add_window : Window
+    public partial class Add_window : MetroWindow
     {
         public Add_window()
         {

@@ -6,18 +6,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TorrentSwitch"
         mc:Ignorable="d"
-        Title="settings_window" Height="300" Width="300"
-        BorderThickness="0" 
-        GlowBrush="Black"
+        Title="Clients" Height="216.573" Width="435.674"
+        BorderThickness="2" 
+        TitleCaps="False"
+        GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip">
     <Grid>
         <Button x:Name="Remove" Content="Remove" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Remove_Click"/>
         <Button x:Name="Add" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Add_Click"/>
-        <DataGrid x:Name="dataGrid" Margin="10,10,10,40"  Height="219" Width="272" BorderThickness="1">
+        <DataGrid x:Name="dataGrid" Margin="10,10,10,40" BorderThickness="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Status" Binding="{Binding status}" />
+                <DataGridTextColumn Header="Status" Width="65" Binding="{Binding status}" />
                 <DataGridTextColumn Header="Host" Width="*" Binding="{Binding host}"  />
-                <DataGridTextColumn Header="Type" Binding="{Binding client_type}" />
+                <DataGridTextColumn Header="Type" Width="80" Binding="{Binding client_type}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
