@@ -76,7 +76,17 @@ namespace TorrentSwitch
 
         private Torrent _torrent;
 
-        public Torrent torrent { get; set; }
+        public Torrent torrent
+        {
+            get
+            {
+                return _torrent;
+            }
+            set
+            {
+                _torrent = value;
+            }
+        }
 
         public Tuple<string, string> TorrentLoader(string torrent_file)
         {
