@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TorrentSwitch"
         mc:Ignorable="d"
-        Title="Clients" Height="216.573" Width="435.674"
+        Title="Clients" Height="260" Width="440"
         BorderThickness="2" 
         TitleCaps="False"
         GlowBrush="{DynamicResource AccentColorBrush}"
@@ -16,7 +16,19 @@
         <Button x:Name="Add" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Add_Click"/>
         <DataGrid x:Name="dataGrid" Margin="10,10,10,40" BorderThickness="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Status" Width="65" Binding="{Binding status}" />
+                <DataGridTemplateColumn Header="Status" Width="SizeToCells" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image   Source="{Binding status}" 
+                                     Width="16"
+                                     Height="16"
+                                     RenderOptions.BitmapScalingMode="Fant"
+                                     />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Alias" Width="65" Binding="{Binding alias}" />
                 <DataGridTextColumn Header="Host" Width="*" Binding="{Binding host}"  />
                 <DataGridTextColumn Header="Type" Width="80" Binding="{Binding client_type}" />
             </DataGrid.Columns>

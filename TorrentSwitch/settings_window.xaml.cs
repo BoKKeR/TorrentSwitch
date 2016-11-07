@@ -24,30 +24,53 @@ namespace TorrentSwitch
         public settings_window()
         {
             InitializeComponent();
+            Load_dataGrid();
+        }
+
+        public struct manager_data
+        {
+            public BitmapImage status { set; get; }
+            
+            public string alias { set; get; }
+            public string host { set; get; }
+            public string client_type { set; get; }
+        }
+        public void Load_dataGrid()
+        {
+            BitmapImage online = new BitmapImage(new Uri("/images/online.png", UriKind.Relative));
+            BitmapImage offline = new BitmapImage(new Uri("/images/offline.png", UriKind.Relative));
+
+            foreach (var setting in torrent_clients.client.users)
+            {
+                BitmapImage actual_status;
+                if (managers.uTorrent.check_status(setting.alias))
+                {
+                    actual_status = online;
+                }
+                    else
+                {
+                    actual_status = offline;
+                }
+                dataGrid.Items.Add(new manager_data {
+                    
+                    status = actual_status,
+                    alias = setting.alias,
+                    host = setting.username + "@" + setting.hostname + ":" + setting.port,
+                    client_type = setting.Type.ToString() });
+            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            
+
         }
+
+
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             Add_window add_manager = new Add_window();
             add_manager.Show();
-        }
-
-        public struct manager_data
-        {
-            public string status { set; get; }
-            public string host { set; get; }
-            public string client_type { set; get; }
-        }
-        
-        public void AddManager(string status, string host, string client_type)
-        {
-            dataGrid.Items.Add(new manager_data {status = status, host = host, client_type = client_type});
-            //dataGrid.Items.Add(status, host, client_type);
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)

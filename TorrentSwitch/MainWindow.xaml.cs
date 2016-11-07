@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,13 +7,9 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Principal;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
-using System.Data.SQLite;
 using TorrentSwitch.managers;
+
+
 
 namespace TorrentSwitch
 {
@@ -24,59 +18,18 @@ namespace TorrentSwitch
     /// </summary>
     /// 
 
-    /* ADD
-     * Data saving for manager settings  //in progress
-     * Deluge support
-     * Transmission support
-     * Magnet link support
-     * Torrent/magnet link association
-     * Debug window
-     * Color options
-     * color/icon options for metro
-     * path support
-     * label support
-    */
-
-    /* FIX
-     * size for multi torrents
-     * GUI scalability                     ///DONE
-     * Drop to load torrent                ///DONE
-     * Utorrent add torrent                
-     * Utorrent add magnet links           ///DONE 
-    */
 
 
-        public enum ManagerType
-        {
-            uTorrent,
-            Deluge,
-            Transmission
-        };
-
-        public class SettingsClass
-            {
-                public ManagerType Type;
-                public string user;
-                public string password;
-                public string ip;
-                public string port;
-        
-            }
-        
-
-        
-        public partial class MainWindow : MetroWindow
+    public partial class MainWindow : MetroWindow
         {
             public MainWindow()
             {
-
+                
                 InitializeComponent();
                 ArgumentLoader();
                 SqliteDatabase.check_for_database();
                 SqliteDatabase.load_database();
             }
-
-
 
         public void get_torrent(string torrent_file)
         {
@@ -111,11 +64,11 @@ namespace TorrentSwitch
         public void ArgumentLoader()
         {
             string[] args = Environment.GetCommandLineArgs();
-            foreach (var torrent_file in args)
+            foreach (var torrentFile in args)
             {
-                if (torrent_check(torrent_file))
+                if (torrent_check(torrentFile))
                 {
-                    get_torrent(torrent_file);
+                    get_torrent(torrentFile);
                 }
             }
         }
@@ -214,7 +167,7 @@ namespace TorrentSwitch
         private void uTorrent_test_Click(object sender, RoutedEventArgs e)
         {
             //uTorrent.send_magnet_uri("127.0.0.1", "8787", "admin", "admin", "magnet:?xt=urn:btih:9F9165D9A281A9B8E782CD5176BBCC8256FD1871&dn=ubuntu-16.04.1-desktop-amd64.iso&tr=http%3a%2f%2ftorrent.ubuntu.com%3a6969%2fannounce&tr=http%3a%2f%2fipv6.torrent.ubuntu.com%3a6969%2fannounce");
-            uTorrent.check_status("127.0.0.1", "8787", "admin", "admin");
+            uTorrent.check_status("default");
 
         }
 

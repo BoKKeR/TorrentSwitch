@@ -35,7 +35,7 @@ namespace TorrentSwitch
             var m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_create_structure.Open();
             string sql = "create table managers " +
-             "(ip varchar(20), " +
+             "(hostname varchar(20), " +
              "port varchar(20), " +
              "username varchar(20), " +
              "password varchar(20), " +
@@ -48,24 +48,12 @@ namespace TorrentSwitch
             m_create_structure.Close();
         }
 
-        public static void load_files()
-        {
-            var m_load_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
-            m_load_structure.Open();
-            string sql = "select * from managers order by name desc";
-            
-            SQLiteCommand command = new SQLiteCommand(sql, m_load_structure);
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-                Console.WriteLine("Name: " + reader["name"] + "\tuser: " + reader["user"]);
-        }
-
-        public static void add_entry(string ip, string port, string username, string password, string alias, string type, string path, string label)
+        public static void add_entry(string hostname, string port, string username, string password, string alias, string type, string path, string label)
         {
             var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_write_entry.Open();
-            string sql = "insert into managers (ip, port , username, password , alias , type, path, label)  values " +
-                         "('" + ip + "', " +
+            string sql = "insert into managers (alias, hostname, port, username, password, type, path, label)  values " +
+                         "('" + hostname + "', " +
                          "'" + port + "'," +
                          "'" + username + "'," +
                          "'" + password + "'," +
@@ -95,20 +83,23 @@ namespace TorrentSwitch
             string sql = "select * from managers order by alias desc";
             SQLiteCommand command = new SQLiteCommand(sql, m_read_entry);
             SQLiteDataReader reader = command.ExecuteReader();
-            settings_window window = new settings_window();
+            
 
 
             while (reader.Read())
             {
-                Debug.WriteLine("\nalias: " + reader["alias"] + "\nuser: " + reader["username"]);
-                string status = "On";
-                string host = reader["alias"] + "//" + reader["username"] + "@" + reader["ip"] + ":" + reader["port"];
-                //string client_type = reader["type"];
-                string client_type = "uTorrent";
-                new settings_window.manager_data { status = status, host = host, client_type = client_type };
-                
 
-                window.AddManager(status, host, host);
+                torrent_clients.Type client_type = (torrent_clients.Type)Enum.Parse(typeof(torrent_clients.Type), reader["type"].ToString());
+
+                torrent_clients.client.AddUser(
+                    reader["alias"].ToString(),
+                    reader["hostname"].ToString(),
+                    reader["port"].ToString(),
+                    reader["username"].ToString(),
+                    reader["password"].ToString(),
+                    torrent_clients.Type.uTorrent,
+                    reader["path"].ToString(),
+                    reader["label"].ToString());
             }
 
         }

@@ -7,7 +7,7 @@ using System.Net;
 
 namespace TorrentSwitch
 {
-    public static class @static
+    public static class Static
     {
         public static bool TryAddCookie(this WebRequest webRequest, Cookie cookie)
         {

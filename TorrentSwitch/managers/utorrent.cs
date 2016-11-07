@@ -109,21 +109,23 @@ namespace TorrentSwitch.managers
             client.OpenRead(add_url);
         }
 
-        public static bool check_status(string ip, string port, string username, string password)
+        public static bool check_status(string alias)
         {
-            string base_url = "http://" + ip + ":" + port + "/gui/";
-
+            torrent_clients.Settings actual_client = new torrent_clients.Settings();
+            actual_client = torrent_clients.client.GetByAlias(alias);
+            string base_url = "http://" + actual_client.hostname + ":" + actual_client.port + "/gui/";
+            
             ///READ TOKEN
             string token_urlAddress = base_url + "token.html";
 
             MainWindow.CookieAwareWebClient client = new MainWindow.CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(username, password);
-
+            client.Credentials = new NetworkCredential(actual_client.username, actual_client.password);
+            Debug.WriteLine(actual_client.hostname);
             try
             {
                 client.OpenRead(token_urlAddress);
             }
-            catch(WebException)
+            catch(Exception)
             {
                 return false;
             }

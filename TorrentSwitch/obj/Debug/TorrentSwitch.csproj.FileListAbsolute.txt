@@ -124,3 +124,4 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\nl\Orc.FileAssoci
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\ru\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.g.cs
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.baml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RabbitMQ.Client.xml

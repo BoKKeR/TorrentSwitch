@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace TorrentSwitch
 {
     /// <summary>
-    /// Interaction logic for Add_window.xaml
+    /// This handles adding a new client
     /// </summary>
     public partial class Add_window : MetroWindow
     {
@@ -34,7 +34,10 @@ namespace TorrentSwitch
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            SqliteDatabase.add_entry(label_textBox.Text, hostname_textBox.Text, port_textBox.Text, username_textBox.Text, passwordBox.Password, Type.Text, Custom_Path.Text, Label.Text);
+
+            torrent_clients.Type client_type = (torrent_clients.Type)Enum.Parse(typeof(torrent_clients.Type), type_comboBox.Text);
+            SqliteDatabase.add_entry(label_textBox.Text, hostname_textBox.Text, port_textBox.Text, username_textBox.Text, passwordBox.Password, type_comboBox.Text, Custom_Path.Text, Label.Text);
+            torrent_clients.client.AddUser(alias_textBox.Text, hostname_textBox.Text, port_textBox.Text, username_textBox.Text, passwordBox.Password, client_type, Custom_Path.Text, label_textBox.Text);
         }
     }
 }
