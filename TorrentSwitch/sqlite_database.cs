@@ -66,11 +66,11 @@ namespace TorrentSwitch
             m_write_entry.Close();
         }
 
-        public static void remove_entry(string name)
+        public static void remove_entry(string alias)
         {
             var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_write_entry.Open();
-            string sql = "DELETE FROM managers WHERE name = '"+ name +"'; ";
+            string sql = "DELETE FROM managers WHERE alias = '" + alias + "'; ";
             SQLiteCommand command = new SQLiteCommand(sql, m_write_entry);
             command.ExecuteNonQuery();
             m_write_entry.Close();
@@ -88,7 +88,7 @@ namespace TorrentSwitch
 
             while (reader.Read())
             {
-
+                MainWindow.ColumnLoader(reader["alias"].ToString());
                 torrent_clients.Type client_type = (torrent_clients.Type)Enum.Parse(typeof(torrent_clients.Type), reader["type"].ToString());
 
                 torrent_clients.client.AddUser(

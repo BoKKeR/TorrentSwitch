@@ -26,12 +26,14 @@
                                      />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+                
                 </DataGridTemplateColumn>
-
+                
                 <DataGridTextColumn Header="Alias" Width="65" Binding="{Binding alias}" />
                 <DataGridTextColumn Header="Host" Width="*" Binding="{Binding host}"  />
                 <DataGridTextColumn Header="Type" Width="80" Binding="{Binding client_type}" />
             </DataGrid.Columns>
+                    
         </DataGrid>
     </Grid>
 </Controls:MetroWindow>

@@ -10,7 +10,7 @@
         TitleCaps="False"
         ResizeMode="NoResize"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Add client" Height="274.195" Width="362.924">
+        Title="Add client" Height="271.333" Width="370">
     <Grid>
         <Button x:Name="button" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="340" Content="Add" RenderTransformOrigin="0.529,-2.046" Click="button_Click"/>
         <TextBox x:Name="hostname_textBox" HorizontalAlignment="Left" Height="23" Margin="67,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>

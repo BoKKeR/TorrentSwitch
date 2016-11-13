@@ -7,6 +7,7 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
+using System.Windows.Data;
 using TorrentSwitch.managers;
 
 
@@ -22,14 +23,44 @@ namespace TorrentSwitch
 
     public partial class MainWindow : MetroWindow
         {
+            static MainWindow mainWindow;
             public MainWindow()
             {
                 
+                mainWindow = this;
+
                 InitializeComponent();
+                //loads files that have been dropped on the .exe
                 ArgumentLoader();
+                //checks if database exists
                 SqliteDatabase.check_for_database();
-                SqliteDatabase.load_database();
+                //loads database
+                SqliteDatabase.load_database(); 
             }
+
+        public static void ColumnLoader(string alias)
+        { 
+            DataGridTextColumn textColumn = new DataGridTextColumn();
+            textColumn.Header = alias;
+            textColumn.Binding = new Binding(alias);
+            mainWindow.dataGrid.Columns.Add(textColumn);
+        }
+
+        public static void RemoveColumn(string alias)
+        {
+
+            DataGridTextColumn textColumn = new DataGridTextColumn();
+            textColumn.Header = alias;
+            mainWindow.dataGrid.Columns.Remove(textColumn);
+            RefreshColumns();
+        }
+
+        public static void RefreshColumns()
+        {
+            var temp = mainWindow.dataGrid.ItemsSource;
+            mainWindow.dataGrid.ItemsSource = null;
+            mainWindow.dataGrid.ItemsSource = temp;
+        }
 
         public void get_torrent(string torrent_file)
         {
@@ -139,6 +170,11 @@ namespace TorrentSwitch
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
         }
 
+        private void send_torrent(object sender, string client, RoutedEventArgs e)
+        {
+            dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
+        }
+
         private void client_button(object sender, RoutedEventArgs e)
         {
             settings_window set_win = new settings_window();
@@ -147,8 +183,6 @@ namespace TorrentSwitch
 
         private void dataGrid_Drop(object sender, DragEventArgs e)
         {
-            DataGrid dataGrid = sender as DataGrid;
-        
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
@@ -176,8 +210,6 @@ namespace TorrentSwitch
 
         private void uTorrent_test_Click(object sender, RoutedEventArgs e)
         {
-            //uTorrent.send_magnet_uri("127.0.0.1", "8787", "admin", "admin", "magnet:?xt=urn:btih:9F9165D9A281A9B8E782CD5176BBCC8256FD1871&dn=ubuntu-16.04.1-desktop-amd64.iso&tr=http%3a%2f%2ftorrent.ubuntu.com%3a6969%2fannounce&tr=http%3a%2f%2fipv6.torrent.ubuntu.com%3a6969%2fannounce");
-            uTorrent.check_status("default");
 
         }
 

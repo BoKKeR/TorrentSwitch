@@ -12,7 +12,7 @@
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
-        TitleCaps="False" MinWidth="400" MinHeight="250"
+        TitleCaps="False" MinWidth="750" MinHeight="250"
         
         >
 
@@ -40,7 +40,9 @@
                   GridLinesVisibility="All" 
                   AllowDrop="True"
                   BorderThickness="1" CanUserReorderColumns="False" MinColumnWidth="10">
+
                 <DataGrid.Columns>
+
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
@@ -48,7 +50,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    
+
                     <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Width="60" Header="Size" Binding="{Binding Size}"/>
                     <DataGridTemplateColumn>
@@ -66,6 +68,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
+
             </DataGrid>
         </Grid>
     </Grid>
