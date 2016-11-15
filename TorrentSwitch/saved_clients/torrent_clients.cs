@@ -24,7 +24,7 @@ namespace TorrentSwitch.torrent_clients
 
         public static Settings GetByAlias(string alias)
         {
-            //Whill return the first Settings where the alias set in that class matches the alias you provied. 
+            //Will return the first Settings where the alias set in that class matches the alias you provied. 
             //Can also return null if none is existent.
             return users.FirstOrDefault(t => t.alias == alias);
         }

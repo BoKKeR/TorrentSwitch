@@ -77,15 +77,12 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\MahApps.Metro.pdb
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\MahApps.Metro.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Newtonsoft.Json.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.xml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csprojResolveAssemblyReference.cache
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\MainWindow.g.cs
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\settings_window.g.cs
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\App.g.cs
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch_MarkupCompile.cache
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch_MarkupCompile.lref
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\App.baml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\MainWindow.baml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\settings_window.baml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.g.resources
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.Properties.Resources.resources
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csproj.GenerateResource.Cache
@@ -122,6 +119,9 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\es\Orc.FileAssoci
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\fr\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\nl\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\ru\Orc.FileAssociation.resources.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.g.cs
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\Add_window.baml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RabbitMQ.Client.xml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.g.cs
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.baml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\Add_window.g.cs
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\Add_window.baml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csprojResolveAssemblyReference.cache

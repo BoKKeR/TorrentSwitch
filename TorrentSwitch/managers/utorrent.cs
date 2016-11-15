@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 using System.Web;
+using TorrentSwitch.torrent_clients;
 
 namespace TorrentSwitch.managers
 {
@@ -88,15 +89,19 @@ namespace TorrentSwitch.managers
             //Debug.WriteLine(responsebody);
         }
 
-        public static void send_magnet_uri(string ip, string port, string username, string password, string magnet)
+        //public static void send_magnet_uri(string ip, string port, string username, string password, string hash)
+        public static void send_magnet_uri(Settings currentClient, string hash)
         {
-            string base_url = "http://" + ip + ":" + port + "/gui/";
+            
+            string magnet = "magnet:?xt=urn:btih:" + hash;
+
+            string base_url = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
 
             ///READ TOKEN
             string token_urlAddress = base_url + "token.html";
 
-            MainWindow.CookieAwareWebClient client = new MainWindow.CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(username, password);
+            CookieAwareWebClient client = new CookieAwareWebClient();
+            client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
 
             client.OpenRead(token_urlAddress);
 
@@ -118,7 +123,7 @@ namespace TorrentSwitch.managers
             ///READ TOKEN
             string token_urlAddress = base_url + "token.html";
 
-            MainWindow.CookieAwareWebClient client = new MainWindow.CookieAwareWebClient();
+            CookieAwareWebClient client = new CookieAwareWebClient();
             client.Credentials = new NetworkCredential(actual_client.username, actual_client.password);
             Debug.WriteLine(actual_client.hostname);
             try

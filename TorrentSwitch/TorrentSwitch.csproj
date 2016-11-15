@@ -146,12 +146,12 @@
     <Compile Include="saved_clients\torrent_clients.cs" />
     <Compile Include="managers\uTorrent.cs" />
     <Compile Include="sqlite_database.cs" />
-    <Compile Include="settings_window.xaml.cs">
+    <Compile Include="windows\settings_window.xaml.cs">
       <DependentUpon>settings_window.xaml</DependentUpon>
     </Compile>
-    <Compile Include="static.cs" />
-    <Compile Include="Add_window.xaml.cs">
-      <DependentUpon>Add_window.xaml</DependentUpon>
+    <Compile Include="managers\webclient.cs" />
+    <Compile Include="windows\add_window.xaml.cs">
+      <DependentUpon>add_window.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -165,11 +165,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="settings_window.xaml">
+    <Page Include="windows\settings_window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Add_window.xaml">
+    <Page Include="windows\add_window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,9 +228,7 @@
       <DefaultIcon>torrent.ico</DefaultIcon>
     </FileAssociation>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="images\offline.png" />
   </ItemGroup>

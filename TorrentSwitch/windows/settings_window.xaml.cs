@@ -62,16 +62,9 @@ namespace TorrentSwitch
             }
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-
-        }
-
-
-
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            Add_window add_manager = new Add_window();
+            windows.Add_window add_manager = new windows.Add_window();
             add_manager.Show();
         }
         

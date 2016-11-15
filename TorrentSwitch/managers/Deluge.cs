@@ -13,16 +13,25 @@ namespace TorrentSwitch.managers
 {
     class Deluge
     {
-        public class Deluge_Request
+        Dictionary<string, int> points = new Dictionary<string, int>
         {
-            public string magnet { get; set; }
+            { "Ja", 9001 },
+            { "J", 3474 },
+            { "Js", 11926 }
+        };
 
-        }
         public void load_torrent()
         {
-            MainWindow.CookieAwareWebClient client = new MainWindow.CookieAwareWebClient();
-            client.Credentials = new NetworkCredential("nas", "deluge");
+
+            CookieAwareWebClient client = new CookieAwareWebClient();
+            client.Credentials = new NetworkCredential("deluge", "deluge");
             client.Headers.Set("content-type","application/json");
+            
+            var reqparm = new System.Collections.Specialized.NameValueCollection();
+            reqparm.Add("", "<any> kinds & of = ? strings");
+
+            byte[] responsebytes = client.UploadValues("http://10.0.0.123:8112/json", "POST", reqparm);
+            string responsebody = Encoding.UTF8.GetString(responsebytes);
 
 
 

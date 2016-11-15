@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,9 +8,13 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
+using System.Security.Policy;
 using System.Windows.Data;
+using System.Windows.Documents;
 using TorrentSwitch.managers;
-
+using TorrentSwitch.Properties;
+using TorrentSwitch.torrent_clients;
+using Settings = TorrentSwitch.torrent_clients.Settings;
 
 
 namespace TorrentSwitch
@@ -26,18 +31,31 @@ namespace TorrentSwitch
             static MainWindow mainWindow;
             public MainWindow()
             {
-                
                 mainWindow = this;
 
                 InitializeComponent();
-                //loads files that have been dropped on the .exe
                 ArgumentLoader();
-                //checks if database exists
                 SqliteDatabase.check_for_database();
-                //loads database
                 SqliteDatabase.load_database(); 
             }
 
+        /// <summary>
+        /// Handles the top client button.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void client_button(object sender, RoutedEventArgs e)
+        {
+            settings_window set_win = new settings_window();
+            set_win.Show();
+        }
+
+        #region dataGrid managment
+
+        /// <summary>
+        /// Generates a new column for each client.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
         public static void ColumnLoader(string alias)
         { 
             DataGridTextColumn textColumn = new DataGridTextColumn();
@@ -46,6 +64,77 @@ namespace TorrentSwitch
             mainWindow.dataGrid.Columns.Add(textColumn);
         }
 
+
+
+        /// <summary>
+        /// Removes the torrent from the dataGrid.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void remove_me(object sender, RoutedEventArgs e)
+        {
+            dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
+        }
+
+        /// <summary>
+        /// Loads the torrent to the dataGrid
+        /// </summary>
+        /// <param name="torrent_file">The torrent file.</param>
+        public void dataGridLoadTorrent(string torrent_file)
+        {
+            if (torrent_check(torrent_file))
+            {
+                DataGridAddRow(TorrentExtractor(torrent_file).Item1,
+                    TorrentExtractor(torrent_file).Item2,
+                    TorrentExtractor(torrent_file).Item3, 
+                    "a");
+            }
+        }
+        public void send_torrent(object sender, RoutedEventArgs e)
+        {
+            string actual_client = null;
+            string hash = null;
+            DataRowView row = (DataRowView)((Button)e.Source).DataContext;
+            Debug.WriteLine(row);
+            dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
+            Settings currentClient = torrent_clients.client.GetByAlias(actual_client);
+            managers.uTorrent.send_magnet_uri(currentClient, hash);
+        }
+
+        /// <summary>
+        /// Extracts the torrent properties, file/files, size, hash.
+        /// </summary>
+        /// <param name="torrent_file">The torrent file.</param>
+        /// <returns></returns>
+        public Tuple<string, string, string> TorrentExtractor(string torrent_file)
+        {
+            Debug.WriteLine(torrent_file);
+            var parser = new BencodeParser();
+
+            try
+            {
+                this.torrent = parser.Parse<Torrent>(torrent_file);
+            }
+            catch (Exception)
+            {
+                //ADD DIALOG 
+            }
+
+            switch (torrent.FileMode)
+            {
+                case TorrentFileMode.Single:
+                    return Tuple.Create(torrent.File.FileName, SizeSuffix(torrent.File.FileSize), torrent.GetInfoHash());
+                case TorrentFileMode.Multi:
+                    return Tuple.Create(torrent.Files.DirectoryName, "N/A", torrent.GetInfoHash()); ///FIX SIZE
+                default:
+                    return Tuple.Create("Not recognized", "Not recognized", "Not recognized");
+            }
+        }
+
+        /// <summary>
+        /// Removes the column that belonged the client that got removed.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
         public static void RemoveColumn(string alias)
         {
 
@@ -62,25 +151,25 @@ namespace TorrentSwitch
             mainWindow.dataGrid.ItemsSource = temp;
         }
 
-        public void get_torrent(string torrent_file)
-        {
-            
-            if (torrent_check(torrent_file))
-            { 
-            UpdateText(TorrentLoader(torrent_file).Item1, TorrentLoader(torrent_file).Item2,  "a");
-            }
-        }
-
-        public void UpdateText(string Name, string Size, string first)
+        /// <summary>
+        /// Adds a row to the dataGrid including the buttons
+        /// </summary>
+        /// <param name="Name">The name.</param>
+        /// <param name="Size">The size.</param>
+        /// <param name="first">The first.</param>
+        /// <param name="hash">The hash.</param>
+        public void DataGridAddRow(string Name, string Size, string first, string hash)
         { 
-            dataGrid.Items.Add(new torrent_data {Name = Name, Size = Size, first = "Deluge"});
+            dataGrid.Items.Add(new torrent_data {Name = Name, Size = Size, Hash = hash});
         }
+        #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            get_torrent("one.torrent");
-        }
-
+        #region torrent managment  
+        /// <summary>
+        /// Quick check to see if torrent passes a basic test
+        /// </summary>
+        /// <param name="torrent">The torrent.</param>
+        /// <returns></returns>
         public static Boolean torrent_check(string torrent)
         {
             if (torrent.EndsWith(".torrent") && (File.Exists(torrent)))
@@ -88,10 +177,11 @@ namespace TorrentSwitch
                 return true;
             }
             return false;
-
         }
 
-       
+        /// <summary>
+        /// Loads the torrents when using arguments
+        /// </summary>
         public void ArgumentLoader()
         {
             string[] args = Environment.GetCommandLineArgs();
@@ -99,11 +189,10 @@ namespace TorrentSwitch
             {
                 if (torrent_check(torrentFile))
                 {
-                    get_torrent(torrentFile);
+                    TorrentExtractor(torrentFile);
                 }
             }
         }
-
 
         private Torrent _torrent;
 
@@ -119,34 +208,16 @@ namespace TorrentSwitch
             }
         }
 
-        public Tuple<string, string> TorrentLoader(string torrent_file)
-        {
-            Debug.WriteLine(torrent_file);
-            var parser = new BencodeParser();
-
-            try
-            {
-                 this.torrent = parser.Parse<Torrent>(torrent_file);
-            }
-            catch (Exception)
-            {
-                //ADD DIALOG 
-
-            }
-
-            switch (torrent.FileMode)
-            {
-                case TorrentFileMode.Single:
-                    return Tuple.Create(torrent.File.FileName, SizeSuffix(torrent.File.FileSize).ToString());
-                case TorrentFileMode.Multi:
-                    return Tuple.Create(torrent.Files.DirectoryName, "N/A"); ///FIX SIZE
-                default:
-                    return Tuple.Create("Not recognized", "Not recognized");
-            }
-        }
-
+        /// <summary>
+        /// converts the size from bits to more readable format
+        /// </summary>
         static readonly string[] SizeSuffixes =
                    { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+        /// <summary>
+        /// Sizes the suffix.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         static string SizeSuffix(Int64 value)
         {
             if (value < 0) { return "-" + SizeSuffix(-value); }
@@ -162,57 +233,24 @@ namespace TorrentSwitch
         {
             public string Name { set; get; }
             public string Size { set; get; }
-            public string first { set; get; } 
+            public string Hash { set; get; }
+            public string First { set; get; } 
         }
-
-        private void remove_me(object sender, RoutedEventArgs e)
-        {
-            dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
-        }
-
-        private void send_torrent(object sender, string client, RoutedEventArgs e)
-        {
-            dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
-        }
-
-        private void client_button(object sender, RoutedEventArgs e)
-        {
-            settings_window set_win = new settings_window();
-            set_win.Show();
-        }
-
+        /// <summary>
+        /// Handles the Drop event of the dataGrid control. Supports multi-file-drop
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DragEventArgs"/> instance containing the event data.</param>
         private void dataGrid_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
                 foreach (string element in torrentList)
-                    get_torrent(element);
-            }
-            
-        }
-
-        public class CookieAwareWebClient : WebClient
-        {
-            private readonly CookieContainer m_container = new CookieContainer();
-
-            protected override WebRequest GetWebRequest(Uri address)
-            {
-                WebRequest request = base.GetWebRequest(address);
-                HttpWebRequest webRequest = request as HttpWebRequest;
-                if (webRequest != null)
-                {
-                    webRequest.CookieContainer = m_container;
-                }
-                return request;
+                    TorrentExtractor(element);
             }
         }
-
-        private void uTorrent_test_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        #endregion  
     }
 }
     
