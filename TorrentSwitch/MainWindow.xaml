@@ -52,7 +52,7 @@
 
                     <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Width="60" Header="Size" Binding="{Binding Size}"/>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn Visibility="Hidden">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Click="remove_me" Content="2"/>

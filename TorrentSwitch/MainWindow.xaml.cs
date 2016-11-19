@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using System.Net;
 using System.Windows;
@@ -8,7 +9,10 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Policy;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using TorrentSwitch.managers;
@@ -28,6 +32,7 @@ namespace TorrentSwitch
 
     public partial class MainWindow : MetroWindow
         {
+
             static MainWindow mainWindow;
             public MainWindow()
             {
@@ -57,11 +62,22 @@ namespace TorrentSwitch
         /// </summary>
         /// <param name="alias">The alias.</param>
         public static void ColumnLoader(string alias)
-        { 
-            DataGridTextColumn textColumn = new DataGridTextColumn();
-            textColumn.Header = alias;
-            textColumn.Binding = new Binding(alias);
-            mainWindow.dataGrid.Columns.Add(textColumn);
+        {
+            var buttonTemplate = new FrameworkElementFactory(typeof(Button));
+            buttonTemplate.SetBinding(Button.ContentProperty, new Binding("button"));
+
+            buttonTemplate.AddHandler(
+                Button.ClickEvent,
+                new RoutedEventHandler((o, e) => mainWindow.send_torrent(o, e))
+            );
+
+            mainWindow.dataGrid.Columns.Add(
+                new DataGridTemplateColumn()
+                {
+                    Header = alias,
+                    CellTemplate = new DataTemplate() { VisualTree = buttonTemplate }
+                }
+            );
         }
 
 
@@ -79,41 +95,58 @@ namespace TorrentSwitch
         /// <summary>
         /// Loads the torrent to the dataGrid
         /// </summary>
-        /// <param name="torrent_file">The torrent file.</param>
-        public void dataGridLoadTorrent(string torrent_file)
+        /// <param name="torrentFile">The torrent file.</param>
+        public void DataGridLoadTorrent(string torrentFile)
         {
-            if (torrent_check(torrent_file))
+            if (torrent_check(torrentFile))
             {
-                DataGridAddRow(TorrentExtractor(torrent_file).Item1,
-                    TorrentExtractor(torrent_file).Item2,
-                    TorrentExtractor(torrent_file).Item3, 
-                    "a");
+                DataGridAddRow(TorrentExtractor(torrentFile).Item1,
+                    TorrentExtractor(torrentFile).Item2,
+                    TorrentExtractor(torrentFile).Item3, 
+                    TorrentExtractor(torrentFile).Item3);
+                foreach (DataGridColumn r in dataGrid.Columns)
+                {
+                    Debug.WriteLine(r);
+                    if (r.ToString() == "alias")
+                    {
+                        Debug.WriteLine("got here wtf");
+                    }
+                        
+                }
             }
         }
+
+        //public void send_me(object sender, RoutedEventArgs e)
+        //{
+        //    settings_window set_win = new settings_window();
+        //    set_win.Show();
+        //}
+
         public void send_torrent(object sender, RoutedEventArgs e)
         {
-            string actual_client = null;
-            string hash = null;
-            DataRowView row = (DataRowView)((Button)e.Source).DataContext;
-            Debug.WriteLine(row);
+            TorrentData row = (TorrentData)dataGrid.SelectedItems[0];
+
+            string actual_client = dataGrid.CurrentColumn.Header.ToString();
+            string magnet = row.Magnet;
+            string clientType = row.ButtonSend;
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
-            Settings currentClient = torrent_clients.client.GetByAlias(actual_client);
-            managers.uTorrent.send_magnet_uri(currentClient, hash);
+
+            Settings clientSettings = torrent_clients.client.GetByAlias(actual_client);
+            managers.uTorrent.send_magnet_uri(clientSettings, magnet);
         }
 
         /// <summary>
-        /// Extracts the torrent properties, file/files, size, hash.
+        /// Extracts the torrent properties, file/files, size, magnet link.
         /// </summary>
-        /// <param name="torrent_file">The torrent file.</param>
+        /// <param name="torrentFile">The torrent file.</param>
         /// <returns></returns>
-        public Tuple<string, string, string> TorrentExtractor(string torrent_file)
+        public Tuple<string, string, string> TorrentExtractor(string torrentFile)
         {
-            Debug.WriteLine(torrent_file);
             var parser = new BencodeParser();
-
+            
             try
             {
-                this.torrent = parser.Parse<Torrent>(torrent_file);
+                this.torrent = parser.Parse<Torrent>(torrentFile);
             }
             catch (Exception)
             {
@@ -123,9 +156,9 @@ namespace TorrentSwitch
             switch (torrent.FileMode)
             {
                 case TorrentFileMode.Single:
-                    return Tuple.Create(torrent.File.FileName, SizeSuffix(torrent.File.FileSize), torrent.GetInfoHash());
+                    return Tuple.Create(torrent.File.FileName, SizeSuffix(torrent.File.FileSize), torrent.GetMagnetLink());
                 case TorrentFileMode.Multi:
-                    return Tuple.Create(torrent.Files.DirectoryName, "N/A", torrent.GetInfoHash()); ///FIX SIZE
+                    return Tuple.Create(torrent.Files.DirectoryName, "N/A", torrent.GetMagnetLink()); ///FIX SIZE
                 default:
                     return Tuple.Create("Not recognized", "Not recognized", "Not recognized");
             }
@@ -158,9 +191,9 @@ namespace TorrentSwitch
         /// <param name="Size">The size.</param>
         /// <param name="first">The first.</param>
         /// <param name="hash">The hash.</param>
-        public void DataGridAddRow(string Name, string Size, string first, string hash)
+        public void DataGridAddRow(string Name, string Size, string first, string Magnet)
         { 
-            dataGrid.Items.Add(new torrent_data {Name = Name, Size = Size, Hash = hash});
+            dataGrid.Items.Add(new TorrentData {Name = Name, Size = Size, Magnet = Magnet, ButtonSend = "send"});
         }
         #endregion
 
@@ -189,7 +222,7 @@ namespace TorrentSwitch
             {
                 if (torrent_check(torrentFile))
                 {
-                    TorrentExtractor(torrentFile);
+                    DataGridLoadTorrent(torrentFile);
                 }
             }
         }
@@ -208,16 +241,11 @@ namespace TorrentSwitch
             }
         }
 
-        /// <summary>
-        /// converts the size from bits to more readable format
-        /// </summary>
         static readonly string[] SizeSuffixes =
                    { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         /// <summary>
-        /// Sizes the suffix.
+        /// converts the size from bits to more readable format
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
         static string SizeSuffix(Int64 value)
         {
             if (value < 0) { return "-" + SizeSuffix(-value); }
@@ -229,12 +257,12 @@ namespace TorrentSwitch
             return string.Format("{0:n1} {1}", adjustedSize, SizeSuffixes[mag]);
         }
 
-        public struct torrent_data
+        public struct TorrentData
         {
             public string Name { set; get; }
             public string Size { set; get; }
-            public string Hash { set; get; }
-            public string First { set; get; } 
+            public string Magnet { set; get; }
+            public string ButtonSend { set; get; } 
         }
         /// <summary>
         /// Handles the Drop event of the dataGrid control. Supports multi-file-drop
@@ -247,7 +275,7 @@ namespace TorrentSwitch
             {
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
                 foreach (string element in torrentList)
-                    TorrentExtractor(element);
+                    DataGridLoadTorrent(element);
             }
         }
         #endregion  

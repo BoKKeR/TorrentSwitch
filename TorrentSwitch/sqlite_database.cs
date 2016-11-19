@@ -35,11 +35,11 @@ namespace TorrentSwitch
             var m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_create_structure.Open();
             string sql = "create table managers " +
-             "(hostname varchar(20), " +
+             "(alias varchar(20), " +
+             "hostname varchar(20), " +
              "port varchar(20), " +
              "username varchar(20), " +
              "password varchar(20), " +
-             "alias varchar(20), " +
              "type varchar(20), " +
              "path varchar(20), " +
              "label varchar(20))";
@@ -48,16 +48,16 @@ namespace TorrentSwitch
             m_create_structure.Close();
         }
 
-        public static void add_entry(string hostname, string port, string username, string password, string alias, string type, string path, string label)
+        public static void add_entry(string alias, string hostname, string port, string username, string password, string type, string path, string label)
         {
             var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_write_entry.Open();
             string sql = "insert into managers (alias, hostname, port, username, password, type, path, label)  values " +
-                         "('" + hostname + "', " +
+                         "('" + alias + "', " +
+                         "'" + hostname + "'," +
                          "'" + port + "'," +
-                         "'" + username + "'," +
+                         "'" + username+ "'," +
                          "'" + password + "'," +
-                         "'" + alias + "'," +
                          "'" + type + "'," +
                          "'" + path + "'," +
                          "'" + label + "')";

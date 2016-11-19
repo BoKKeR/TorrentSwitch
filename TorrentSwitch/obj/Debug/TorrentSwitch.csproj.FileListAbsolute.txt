@@ -56,20 +56,16 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\TorrentSwitch.exe
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\TorrentSwitch.exe
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\TorrentSwitch.pdb
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\BencodeNET.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Burrow.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Castle.Core.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\CookComputing.XmlRpcV2.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.SqlServer.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\MahApps.Metro.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Newtonsoft.Json.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RabbitMQ.Client.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.EF6.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.Linq.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Windows.Interactivity.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\BencodeNET.xml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Burrow.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Castle.Core.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.SqlServer.xml
@@ -106,8 +102,6 @@ C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\EntityFramework.S
 C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Newtonsoft.Json.xml
 C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.xml
 C:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\System.Data.SQLite.xml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RestSharp.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Catel.Core.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Orc.FileAssociation.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\Catel.Core.pdb
@@ -119,7 +113,6 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\es\Orc.FileAssoci
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\fr\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\nl\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\ru\Orc.FileAssociation.resources.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\RabbitMQ.Client.xml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.g.cs
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.baml
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\Add_window.g.cs
