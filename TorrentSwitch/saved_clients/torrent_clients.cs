@@ -42,7 +42,7 @@ namespace TorrentSwitch.torrent_clients
             }
         }
 
-        public static void AddUser(string alias, string hostname, string port, string username, string password, Type type, string path,
+        public static void AddUser(string alias, string hostname, string port, string username, string password, ClientType theClientType, string path,
             string label)
         {
             //Could be a good idea to check that none of the variable is null
@@ -55,9 +55,10 @@ namespace TorrentSwitch.torrent_clients
                 port = port,
                 label = label,
                 path = path,
-                Type = type
+                ManagerClientType = theClientType
             });
         }
+        
     }
     public class Settings
     {
@@ -69,10 +70,10 @@ namespace TorrentSwitch.torrent_clients
         public string port { get; set; }
         public string path { get; set; }
         public string label { get; set; }
-        public Type Type { get; set; }
+        public ClientType ManagerClientType { get; set; }
     }
 
-    public enum Type
+    public enum ClientType
     {
         uTorrent,
         Deluge,

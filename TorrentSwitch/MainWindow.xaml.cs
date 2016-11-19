@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Data;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using BencodeNET.Torrents;
@@ -9,14 +6,8 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
 using TorrentSwitch.managers;
-using TorrentSwitch.Properties;
 using TorrentSwitch.torrent_clients;
 using Settings = TorrentSwitch.torrent_clients.Settings;
 
@@ -30,13 +21,13 @@ namespace TorrentSwitch
 
 
 
-    public partial class MainWindow : MetroWindow
-        {
+    public partial class MainWindow
+    {
 
-            static MainWindow mainWindow;
+            static MainWindow _mainWindow;
             public MainWindow()
             {
-                mainWindow = this;
+                _mainWindow = this;
 
                 InitializeComponent();
                 ArgumentLoader();
@@ -51,8 +42,8 @@ namespace TorrentSwitch
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void client_button(object sender, RoutedEventArgs e)
         {
-            settings_window set_win = new settings_window();
-            set_win.Show();
+            settings_window setWin = new settings_window();
+            setWin.Show();
         }
 
         #region dataGrid managment
@@ -65,13 +56,13 @@ namespace TorrentSwitch
         {
             var buttonTemplate = new FrameworkElementFactory(typeof(Button));
             buttonTemplate.SetBinding(Button.ContentProperty, new Binding("button"));
-
+            
             buttonTemplate.AddHandler(
                 Button.ClickEvent,
-                new RoutedEventHandler((o, e) => mainWindow.send_torrent(o, e))
+                new RoutedEventHandler((o, e) => _mainWindow.send_torrent(o, e))
             );
 
-            mainWindow.dataGrid.Columns.Add(
+            _mainWindow.dataGrid.Columns.Add(
                 new DataGridTemplateColumn()
                 {
                     Header = alias,
@@ -102,7 +93,6 @@ namespace TorrentSwitch
             {
                 DataGridAddRow(TorrentExtractor(torrentFile).Item1,
                     TorrentExtractor(torrentFile).Item2,
-                    TorrentExtractor(torrentFile).Item3, 
                     TorrentExtractor(torrentFile).Item3);
                 foreach (DataGridColumn r in dataGrid.Columns)
                 {
@@ -116,23 +106,40 @@ namespace TorrentSwitch
             }
         }
 
-        //public void send_me(object sender, RoutedEventArgs e)
-        //{
-        //    settings_window set_win = new settings_window();
-        //    set_win.Show();
-        //}
 
+        /// <summary>
+        /// Handles every button from the last Columns of the DataGrid, on button click event it reads from the selected row:
+        /// magnet link, actual_client, clientType
+        /// Sends the magnet link to the right client. 
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         public void send_torrent(object sender, RoutedEventArgs e)
         {
             TorrentData row = (TorrentData)dataGrid.SelectedItems[0];
 
-            string actual_client = dataGrid.CurrentColumn.Header.ToString();
+            string actualClient = dataGrid.CurrentColumn.Header.ToString();
             string magnet = row.Magnet;
-            string clientType = row.ButtonSend;
+
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
 
-            Settings clientSettings = torrent_clients.client.GetByAlias(actual_client);
-            managers.uTorrent.send_magnet_uri(clientSettings, magnet);
+            Settings clientSettings = torrent_clients.client.GetByAlias(actualClient);
+            ClientType currentType = clientSettings.ManagerClientType;
+            switch (currentType)
+            {
+                case ClientType.uTorrent:
+                    uTorrent.send_magnet_uri(clientSettings, magnet);
+                    break;
+                case ClientType.Deluge:
+                    Deluge.send_magnet_uri(clientSettings, magnet);
+                    break;
+                case ClientType.Transmission:
+                    Transmission.send_magnet_uri(clientSettings, magnet);
+                    break;
+            }
+
+
+            uTorrent.send_magnet_uri(clientSettings, magnet);
         }
 
         /// <summary>
@@ -173,27 +180,26 @@ namespace TorrentSwitch
 
             DataGridTextColumn textColumn = new DataGridTextColumn();
             textColumn.Header = alias;
-            mainWindow.dataGrid.Columns.Remove(textColumn);
+            _mainWindow.dataGrid.Columns.Remove(textColumn);
             RefreshColumns();
         }
 
         public static void RefreshColumns()
         {
-            var temp = mainWindow.dataGrid.ItemsSource;
-            mainWindow.dataGrid.ItemsSource = null;
-            mainWindow.dataGrid.ItemsSource = temp;
+            var temp = _mainWindow.dataGrid.ItemsSource;
+            _mainWindow.dataGrid.ItemsSource = null;
+            _mainWindow.dataGrid.ItemsSource = temp;
         }
 
         /// <summary>
         /// Adds a row to the dataGrid including the buttons
         /// </summary>
-        /// <param name="Name">The name.</param>
-        /// <param name="Size">The size.</param>
-        /// <param name="first">The first.</param>
-        /// <param name="hash">The hash.</param>
-        public void DataGridAddRow(string Name, string Size, string first, string Magnet)
+        /// <param name="name">The name.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="magnet">The magnet.</param>
+        public void DataGridAddRow(string name, string size, string magnet)
         { 
-            dataGrid.Items.Add(new TorrentData {Name = Name, Size = Size, Magnet = Magnet, ButtonSend = "send"});
+            dataGrid.Items.Add(new TorrentData {Name = name, Size = size, Magnet = magnet});
         }
         #endregion
 
@@ -227,19 +233,7 @@ namespace TorrentSwitch
             }
         }
 
-        private Torrent _torrent;
-
-        public Torrent torrent
-        {
-            get
-            {
-                return _torrent;
-            }
-            set
-            {
-                _torrent = value;
-            }
-        }
+        public Torrent torrent { get; set; }
 
         static readonly string[] SizeSuffixes =
                    { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };

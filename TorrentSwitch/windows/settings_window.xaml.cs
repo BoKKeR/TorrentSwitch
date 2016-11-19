@@ -58,7 +58,7 @@ namespace TorrentSwitch
                     status = actual_status,
                     alias = setting.alias,
                     host = setting.username + "@" + setting.hostname + ":" + setting.port,
-                    client_type = setting.Type.ToString() });
+                    client_type = setting.ManagerClientType.ToString() });
             }
         }
 

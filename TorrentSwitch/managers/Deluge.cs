@@ -20,7 +20,7 @@ namespace TorrentSwitch.managers
             { "Js", 11926 }
         };
 
-        public void load_torrent()
+        public static bool send_magnet_uri(Settings currentClient, string magnet)
         {
 
             CookieAwareWebClient client = new CookieAwareWebClient();
@@ -33,7 +33,7 @@ namespace TorrentSwitch.managers
             byte[] responsebytes = client.UploadValues("http://10.0.0.123:8112/json", "POST", reqparm);
             string responsebody = Encoding.UTF8.GetString(responsebytes);
 
-
+            return true;
 
         }
 

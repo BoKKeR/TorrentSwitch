@@ -18,51 +18,51 @@ namespace TorrentSwitch.managers
     /// </summary>
     class uTorrent
     {
-        public static void send_magnet_uri(Settings currentClient, string magnet)
+        public static bool send_magnet_uri(Settings currentClient, string magnet)
         {
-            string base_url = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
+            string baseUrl = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
 
             ///READ TOKEN
-            string token_urlAddress = base_url + "token.html";
+            string tokenUrlAddress = baseUrl + "token.html";
 
             CookieAwareWebClient client = new CookieAwareWebClient();
             client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
 
-            //try
-            //{
-                client.OpenRead(token_urlAddress);
-                StreamReader Reader = new StreamReader(client.OpenRead(token_urlAddress));
-                string token = Reader.ReadToEnd();
+            try
+            {
+                
+                StreamReader reader = new StreamReader(client.OpenRead(tokenUrlAddress));
+                string token = reader.ReadToEnd();
 
                 token = Regex.Replace(token, "<.*?>", String.Empty);
                 ///SEND MAGNET LINK
-                string add_url = base_url + "?action=add-url&s=" + magnet + "&token=" + token;
-                client.OpenRead(add_url);
-            //}
-            //catch (Exception)
-            //{
-                
-            //}
+                string addUrl = baseUrl + "?action=add-url&s=" + System.Uri.EscapeDataString(magnet) + "&token=" + token;
+                client.OpenRead(addUrl);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
 
 
-            
         }
 
         public static bool check_status(string alias)
         {
-            torrent_clients.Settings actual_client = new torrent_clients.Settings();
-            actual_client = torrent_clients.client.GetByAlias(alias);
-            string base_url = "http://" + actual_client.hostname + ":" + actual_client.port + "/gui/";
+            torrent_clients.Settings actualClient;
+            actualClient = torrent_clients.client.GetByAlias(alias);
+            string baseUrl = "http://" + actualClient.hostname + ":" + actualClient.port + "/gui/";
             
             ///READ TOKEN
-            string token_urlAddress = base_url + "token.html";
+            string tokenUrlAddress = baseUrl + "token.html";
 
             CookieAwareWebClient client = new CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(actual_client.username, actual_client.password);
-            Debug.WriteLine(actual_client.hostname);
+            client.Credentials = new NetworkCredential(actualClient.username, actualClient.password);
+            Debug.WriteLine(actualClient.hostname);
             try
             {
-                client.OpenRead(token_urlAddress);
+                client.OpenRead(tokenUrlAddress);
             }
             catch(Exception)
             {

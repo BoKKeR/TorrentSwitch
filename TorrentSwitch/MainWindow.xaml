@@ -38,6 +38,7 @@
                   Margin="10" 
                   GridLinesVisibility="All" 
                   AllowDrop="True"
+                  IsReadOnly="True"
                   BorderThickness="1" CanUserReorderColumns="False" MinColumnWidth="10">
 
                 <DataGrid.Columns>
