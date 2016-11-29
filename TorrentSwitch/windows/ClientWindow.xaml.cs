@@ -15,18 +15,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using TorrentSwitch.torrent_clients;
 
 namespace TorrentSwitch
 {
     /// <summary>
     /// Interaction logic for settings_window.xaml
     /// </summary>
-    public partial class settings_window : MetroWindow
+    public partial class ClientWindow: MetroWindow
 
     {
-        static settings_window _settingsWindowForm;
+        static ClientWindow _settingsWindowForm;
         
-        public settings_window()
+        public ClientWindow()
         {
             _settingsWindowForm = this;
             InitializeComponent();
@@ -45,6 +46,7 @@ namespace TorrentSwitch
         }
         public void Load_dataGrid()
         {
+            
             BitmapImage online = new BitmapImage(new Uri("/images/online.png", UriKind.Relative));
             BitmapImage offline = new BitmapImage(new Uri("/images/offline.png", UriKind.Relative));
 
@@ -52,7 +54,26 @@ namespace TorrentSwitch
             {
                 
                 BitmapImage actual_status;
-                actual_status = managers.uTorrent.check_status(setting.alias) ? online : offline;
+                switch (setting.ManagerClientType) //Checks which type of manager you are adding and checks if the client is online/offline
+                {
+                    case ClientType.uTorrent:
+                    {
+                            actual_status = managers.uTorrent.check_status(setting.alias) ? online : offline;
+                            break;
+                    }
+
+                    case ClientType.Deluge:
+                    {
+                            actual_status = managers.Deluge.check_status(setting.alias) ? online : offline;
+                            break;
+                    }
+                    default:
+                    {
+                            actual_status = managers.uTorrent.check_status(setting.alias) ? online : offline; // change to transmission later
+                            break;
+                    }
+                }
+
                 dataGrid.Items.Add(new manager_data {
                     
                     status = actual_status,
@@ -64,26 +85,27 @@ namespace TorrentSwitch
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            windows.Add_window add_manager = new windows.Add_window();
-            add_manager.Show();
+            windows.AddWindow add_manager = new windows.AddWindow();
+            add_manager.ShowDialog();
         }
         
         public static void Refresh_clients()
         {
-            _settingsWindowForm.dataGrid.Items.Refresh();
+            _settingsWindowForm.dataGrid.Items.Clear();
+            _settingsWindowForm.Load_dataGrid();
+            
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedIndex != -1)
             {
-                Debug.WriteLine(dataGrid.SelectedIndex);
                 manager_data dataRow = (manager_data)dataGrid.SelectedItem;
                 string selectedAlias = dataRow.alias;
-                Debug.WriteLine(selectedAlias);
                 SqliteDatabase.remove_entry(selectedAlias);
+                client.removeUser(selectedAlias); 
                 dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
-                MainWindow.RemoveColumn(selectedAlias);
+                MainWindow.ColumnRemover(selectedAlias);
                 Refresh_clients();
             }    
         }

@@ -97,7 +97,7 @@ namespace TorrentSwitch
                     reader["port"].ToString(),
                     reader["username"].ToString(),
                     reader["password"].ToString(),
-                    torrent_clients.ClientType.uTorrent,
+                    client_type,
                     reader["path"].ToString(),
                     reader["label"].ToString());
             }

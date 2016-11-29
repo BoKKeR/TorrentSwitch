@@ -50,16 +50,16 @@ namespace TorrentSwitch.managers
 
         public static bool check_status(string alias)
         {
-            torrent_clients.Settings actualClient;
-            actualClient = torrent_clients.client.GetByAlias(alias);
-            string baseUrl = "http://" + actualClient.hostname + ":" + actualClient.port + "/gui/";
+            var currentClient = torrent_clients.client.GetByAlias(alias);
+
+            string baseUrl = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
             
             ///READ TOKEN
             string tokenUrlAddress = baseUrl + "token.html";
 
             CookieAwareWebClient client = new CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(actualClient.username, actualClient.password);
-            Debug.WriteLine(actualClient.hostname);
+            client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
+            Debug.WriteLine(currentClient.hostname);
             try
             {
                 client.OpenRead(tokenUrlAddress);

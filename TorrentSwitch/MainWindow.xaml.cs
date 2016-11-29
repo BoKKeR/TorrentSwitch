@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using BencodeNET.Torrents;
@@ -6,6 +7,7 @@ using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
 using System.IO;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Data;
 using TorrentSwitch.managers;
 using TorrentSwitch.torrent_clients;
@@ -42,8 +44,8 @@ namespace TorrentSwitch
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void client_button(object sender, RoutedEventArgs e)
         {
-            settings_window setWin = new settings_window();
-            setWin.Show();
+            ClientWindow setWin = new ClientWindow();
+            setWin.ShowDialog();
         }
 
         #region dataGrid managment
@@ -55,7 +57,7 @@ namespace TorrentSwitch
         public static void ColumnLoader(string alias)
         {
             var buttonTemplate = new FrameworkElementFactory(typeof(Button));
-            buttonTemplate.SetBinding(Button.ContentProperty, new Binding("button"));
+            //buttonTemplate.SetBinding(Button.ContentProperty, new Binding("button"));
             
             buttonTemplate.AddHandler(
                 Button.ClickEvent,
@@ -71,7 +73,13 @@ namespace TorrentSwitch
             );
         }
 
+        public static void ColumnRemover(string alias)
+        {
 
+            //int position = ((DataTable) _mainWindow.dataGrid.ItemsSource).Columns[alias].Ordinal;
+            //_mainWindow.dataGrid.Columns.RemoveAt(position);
+            //_mainWindow.dataGrid.Columns.Remove(alias);
+        }
 
         /// <summary>
         /// Removes the torrent from the dataGrid.
@@ -94,18 +102,8 @@ namespace TorrentSwitch
                 DataGridAddRow(TorrentExtractor(torrentFile).Item1,
                     TorrentExtractor(torrentFile).Item2,
                     TorrentExtractor(torrentFile).Item3);
-                foreach (DataGridColumn r in dataGrid.Columns)
-                {
-                    Debug.WriteLine(r);
-                    if (r.ToString() == "alias")
-                    {
-                        Debug.WriteLine("got here wtf");
-                    }
-                        
-                }
             }
         }
-
 
         /// <summary>
         /// Handles every button from the last Columns of the DataGrid, on button click event it reads from the selected row:
@@ -171,24 +169,24 @@ namespace TorrentSwitch
             }
         }
 
-        /// <summary>
-        /// Removes the column that belonged the client that got removed.
-        /// </summary>
-        /// <param name="alias">The alias.</param>
-        public static void RemoveColumn(string alias)
-        {
-
-            DataGridTextColumn textColumn = new DataGridTextColumn();
-            textColumn.Header = alias;
-            _mainWindow.dataGrid.Columns.Remove(textColumn);
-            RefreshColumns();
-        }
+        ///// <summary>
+        ///// Removes the column that belonged the client that got removed.
+        ///// </summary>
+        ///// <param name="alias">The alias.</param>
+        //public static void RemoveColumn(string alias)
+        //{
+        //    DataGridTextColumn textColumn = new DataGridTextColumn();
+        //    textColumn.Header = alias;
+        //    _mainWindow.dataGrid.Columns.Remove(textColumn);
+        //    RefreshColumns();
+        //}
 
         public static void RefreshColumns()
         {
             var temp = _mainWindow.dataGrid.ItemsSource;
             _mainWindow.dataGrid.ItemsSource = null;
             _mainWindow.dataGrid.ItemsSource = temp;
+            _mainWindow.dataGrid.Items.Refresh();
         }
 
         /// <summary>
@@ -256,7 +254,6 @@ namespace TorrentSwitch
             public string Name { set; get; }
             public string Size { set; get; }
             public string Magnet { set; get; }
-            public string ButtonSend { set; get; } 
         }
         /// <summary>
         /// Handles the Drop event of the dataGrid control. Supports multi-file-drop
@@ -272,7 +269,7 @@ namespace TorrentSwitch
                     DataGridLoadTorrent(element);
             }
         }
-        #endregion  
+        #endregion
     }
 }
     

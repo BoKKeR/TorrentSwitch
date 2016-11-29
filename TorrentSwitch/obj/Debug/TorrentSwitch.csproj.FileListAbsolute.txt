@@ -113,11 +113,6 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\es\Orc.FileAssoci
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\fr\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\nl\Orc.FileAssociation.resources.dll
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\bin\Debug\ru\Orc.FileAssociation.resources.dll
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.g.cs
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\settings_window.baml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\Add_window.g.cs
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\Add_window.baml
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csprojResolveAssemblyReference.cache
 \\SNAS\home\CloudStation\c#\TorrentSwitch-master\TorrentSwitch\bin\Debug\TorrentSwitch.exe.config
 \\SNAS\home\CloudStation\c#\TorrentSwitch-master\TorrentSwitch\bin\Debug\TorrentSwitch.exe
 \\SNAS\home\CloudStation\c#\TorrentSwitch-master\TorrentSwitch\bin\Debug\TorrentSwitch.pdb
@@ -214,3 +209,8 @@ X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csp
 \\SNAS\home\CloudStation\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.g.resources
 \\SNAS\home\CloudStation\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.Properties.Resources.resources
 \\SNAS\home\CloudStation\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csproj.GenerateResource.Cache
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\ClientWindow.g.cs
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\ClientWindow.baml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\AddWindow.g.cs
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\windows\AddWindow.baml
+X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\TorrentSwitch.csprojResolveAssemblyReference.cache

@@ -22,6 +22,11 @@ namespace TorrentSwitch.torrent_clients
             }
         }
 
+        public static void removeUser(string alias)
+        {
+            users.Remove(GetByAlias(alias));
+        }
+
         public static Settings GetByAlias(string alias)
         {
             //Will return the first Settings where the alias set in that class matches the alias you provied. 

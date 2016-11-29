@@ -131,12 +131,12 @@
     <Compile Include="saved_clients\torrent_clients.cs" />
     <Compile Include="managers\uTorrent.cs" />
     <Compile Include="sqlite_database.cs" />
-    <Compile Include="windows\settings_window.xaml.cs">
-      <DependentUpon>settings_window.xaml</DependentUpon>
+    <Compile Include="windows\ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="managers\webclient.cs" />
-    <Compile Include="windows\add_window.xaml.cs">
-      <DependentUpon>add_window.xaml</DependentUpon>
+    <Compile Include="windows\AddWindow.xaml.cs">
+      <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -150,11 +150,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="windows\settings_window.xaml">
+    <Page Include="windows\ClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="windows\add_window.xaml">
+    <Page Include="windows\AddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

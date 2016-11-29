@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 X:\programming_future\c#\TorrentSwitch\TorrentSwitch\App.xaml
-3-97932926
+3-63571969
 
-181156596814
+1859062497
 30-2072432781
-MainWindow.xaml;windows\settings_window.xaml;windows\add_window.xaml;
+MainWindow.xaml;windows\ClientWindow.xaml;windows\AddWindow.xaml;
 
 True
 
