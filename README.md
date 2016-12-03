@@ -1,7 +1,9 @@
 # TorrentSwitch: Tie multiple torrent managers into one simple tool
-Simple program to link multiple torrent clients into a simple manager. This allows users to add multiple torrent managers which are running on different systems/devices.
+A program that links multiple torrent clients into a simple manager. This allows users to add multiple torrent managers which are running on different systems/devices.
 Adding multiple instances of the same torrent manager are possible, allowing the user to set multiple download folders, something many torrent managers do not support.
 
+##What this program does not do 
+Download files/torrents
 <p align="center">
 <img src ="http://i.imgur.com/eq1qINE.png">
 </p>
