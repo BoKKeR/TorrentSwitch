@@ -10,7 +10,7 @@
         BorderThickness="2" 
         TitleCaps="False"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
     <Grid>
         <Button x:Name="Remove" Content="Remove" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Remove_Click"/>
         <Button x:Name="Add" Content="Add" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Add_Click"/>

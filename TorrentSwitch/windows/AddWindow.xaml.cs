@@ -14,6 +14,7 @@ namespace TorrentSwitch.windows
         public AddWindow()
         {
             InitializeComponent();
+            
         }
 
 

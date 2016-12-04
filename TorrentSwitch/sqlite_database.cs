@@ -10,15 +10,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.IsolatedStorage;
 using System.Reflection;
+using System.Windows;
 
 namespace TorrentSwitch
 {
     static class SqliteDatabase
     {
+        public static string getpath()
+        {
+            string programPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            programPath = programPath.Substring(0, programPath.Length - 17);
+
+            return programPath;
+        }
+
         public static void check_for_database()
         {
 
-            if (!File.Exists("settings.sqlite"))
+
+            //MainWindow.crazy_debug(path);
+            if (!File.Exists(getpath() + "settings.sqlite"))
             {
                 create_database();
             }
@@ -31,7 +42,7 @@ namespace TorrentSwitch
 
         public static void create_database()
         {
-            SQLiteConnection.CreateFile("settings.sqlite");
+            SQLiteConnection.CreateFile(getpath() + "settings.sqlite");
             var m_create_structure = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
             m_create_structure.Open();
             string sql = "create table managers " +
@@ -50,7 +61,7 @@ namespace TorrentSwitch
 
         public static void add_entry(string alias, string hostname, string port, string username, string password, string type, string path, string label)
         {
-            var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
+            var m_write_entry = new SQLiteConnection("Data Source=" + getpath() + "settings.sqlite;Version=3;");
             m_write_entry.Open();
             string sql = "insert into managers (alias, hostname, port, username, password, type, path, label)  values " +
                          "('" + alias + "', " +
@@ -68,7 +79,7 @@ namespace TorrentSwitch
 
         public static void remove_entry(string alias)
         {
-            var m_write_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
+            var m_write_entry = new SQLiteConnection("Data Source=" + getpath() + "settings.sqlite;Version=3;");
             m_write_entry.Open();
             string sql = "DELETE FROM managers WHERE alias = '" + alias + "'; ";
             SQLiteCommand command = new SQLiteCommand(sql, m_write_entry);
@@ -78,7 +89,7 @@ namespace TorrentSwitch
 
         public static void load_database() 
         {
-            var m_read_entry = new SQLiteConnection("Data Source=settings.sqlite;Version=3;");
+            var m_read_entry = new SQLiteConnection("Data Source=" + getpath() + "settings.sqlite;Version=3;");
             m_read_entry.Open();
             string sql = "select * from managers order by alias desc";
             SQLiteCommand command = new SQLiteCommand(sql, m_read_entry);
