@@ -17,7 +17,7 @@ class pipe_server
             //messagebus1.MessageReceived +=
             //(sender, e) => return(Encoding.UTF8.GetString(e.Message));
 
-//need to fucking pass it from this loop back when result is met, can be done from mainWindow Task probably..... I HOPE SO fuck me.
+
 
             //messagebus1.MessageReceived +=
             //(sender, e) => Debug.WriteLine(Encoding.UTF8.GetString(e.Message));
