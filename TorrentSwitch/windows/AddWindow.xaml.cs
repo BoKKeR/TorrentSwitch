@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using MahApps.Metro.Controls;
 
 namespace TorrentSwitch.windows
@@ -26,7 +24,7 @@ namespace TorrentSwitch.windows
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-
+            
             torrent_clients.ClientType client_type = (torrent_clients.ClientType)Enum.Parse(typeof(torrent_clients.ClientType), type_comboBox.Text);
             SqliteDatabase.add_entry(
                 alias_textBox.Text, 

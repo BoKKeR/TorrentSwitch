@@ -37,6 +37,7 @@
                   CurrentColumn="{Binding Column}"
                   Drop="dataGrid_Drop"
                   Margin="10" 
+                  
                   GridLinesVisibility="All" 
                   AllowDrop="True"
                   IsReadOnly="True"
