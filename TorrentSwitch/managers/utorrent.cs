@@ -17,12 +17,18 @@ namespace TorrentSwitch.managers
     /// </summary>
     class uTorrent
     {
+        private static string BaseUrl(Settings currentClient)
+        {
+            string url = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
+            return url;
+        }
+        
         public static bool send_magnet_uri(Settings currentClient, string magnet)
         {
-            string baseUrl = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
+            string requestURL = BaseUrl(currentClient);
 
             ///READ TOKEN
-            string tokenUrlAddress = baseUrl + "token.html";
+            string tokenUrlAddress = requestURL + "token.html";
 
             CookieAwareWebClient client = new CookieAwareWebClient();
             client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
@@ -35,7 +41,7 @@ namespace TorrentSwitch.managers
 
                 token = Regex.Replace(token, "<.*?>", String.Empty);
                 ///SEND MAGNET LINK
-                string addUrl = baseUrl + "?action=add-url&s=" + System.Uri.EscapeDataString(magnet) + "&token=" + token;
+                string addUrl = requestURL + "?action=add-url&s=" + System.Uri.EscapeDataString(magnet) + "&token=" + token;
                 client.OpenRead(addUrl);
             }
             catch (Exception)

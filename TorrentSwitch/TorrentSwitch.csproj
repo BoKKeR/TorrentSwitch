@@ -84,7 +84,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -173,8 +173,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="interprocess_communication\pipe_client.cs" />
-    <Compile Include="interprocess_communication\pipe_server.cs" />
+    <Compile Include="interprocess_communication\pipeClient.cs" />
+    <Compile Include="interprocess_communication\pipeServer.cs" />
+    <Compile Include="logic\dataGrid_logic.cs" />
     <Compile Include="logic\torrent_logic.cs" />
     <Compile Include="managers\Deluge.cs" />
     <Compile Include="managers\Transmission.cs" />

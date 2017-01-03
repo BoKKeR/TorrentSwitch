@@ -10,7 +10,7 @@ using TorrentSwitch.managers;
 using TorrentSwitch.torrent_clients;
 using TorrentSwitch.logic;
 using Settings = TorrentSwitch.torrent_clients.Settings;
-
+using System.Diagnostics;
 
 namespace TorrentSwitch
 {
@@ -21,7 +21,7 @@ namespace TorrentSwitch
     public partial class MainWindow : MetroWindow
     {
 
-        static MainWindow _mainWindow;
+        public static MainWindow _mainWindow;
 
         public MainWindow()
         {
@@ -31,20 +31,13 @@ namespace TorrentSwitch
             ArgumentLoader();
             SqliteDatabase.check_for_database();
             SqliteDatabase.load_database();
-            Task task = Task.Run((Action)pipe_server.messaging_server);
-
-
-
+            
+            pipeServer.StartAsyncServer();
         }
+        
 
-        public static void crazy_debug(string debug)
-        {
-            using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"x:\log.txt", true))
-            {
-                file.WriteLine(debug);
-            }
-        }
+
+
 
 
         /// <summary>
@@ -98,24 +91,6 @@ namespace TorrentSwitch
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
         }
 
-        /// <summary>
-        /// Loads the torrent to the dataGrid
-        /// </summary>
-        /// <param name="targetTorrent">The torrent file.</param>
-        public void DataGridLoadTarget(string targetTorrent)
-        {
-            if (torrent_logic.torrent_check(targetTorrent))
-            {
-                DataGridAddRow(torrent_logic.TorrentInfoExtractor(targetTorrent).Item1,
-                    torrent_logic.TorrentInfoExtractor(targetTorrent).Item2,
-                    torrent_logic.TorrentInfoExtractor(targetTorrent).Item3);
-            }
-            if (torrent_logic.magnet_check(targetTorrent))
-            {
-                DataGridAddRow(targetTorrent, "N/A", targetTorrent);
-            }
-
-        }
 
         /// <summary>
         /// Handles every button from the last Columns of the DataGrid, on button click event it reads from the selected row:
@@ -180,16 +155,7 @@ namespace TorrentSwitch
             _mainWindow.dataGrid.Items.Refresh();
         }
 
-        /// <summary>
-        /// Adds a row to the dataGrid including the buttons
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="size">The size.</param>
-        /// <param name="magnet">The magnet.</param>
-        public void DataGridAddRow(string name, string size, string magnet)
-        { 
-            dataGrid.Items.Add(new TorrentData {Name = name, Size = size, Magnet = magnet});
-        }
+
         #endregion
 
         #region torrent managment  
@@ -204,7 +170,7 @@ namespace TorrentSwitch
             string[] args = Environment.GetCommandLineArgs();
             foreach (var torrentFile in args)
             {
-                    DataGridLoadTarget(torrentFile);
+                    dataGrid_logic.DataGridLoadTarget(torrentFile);
             }
         }
 
@@ -228,8 +194,8 @@ namespace TorrentSwitch
             {
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
-                foreach (string file in torrentList)
-                    DataGridLoadTarget(file);
+                foreach (string torrentFile in torrentList)
+                    dataGrid_logic.DataGridLoadTarget(torrentFile);
             }
         }
         #endregion

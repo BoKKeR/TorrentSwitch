@@ -14,19 +14,25 @@ namespace TorrentSwitch.managers
 {
     class Deluge
     {
+        private static string BaseUrl(Settings currentClient)
+        {
+            string url = "http://" + currentClient.hostname + ":" + currentClient.port + "/json";
+            return url;
+        }
+
         public static bool send_magnet_uri(Settings currentClient, string magnet)
         {
-            string baseUrl = "http://" + currentClient.hostname + ":" + currentClient.port + "/json";
+            string requestURL = BaseUrl(currentClient);
 
             CookieAwareWebClient client = new CookieAwareWebClient();
             client.Headers.Set("content-type", "application/json");
             try
             {
                 string dataStringJson1 = "{\"method\": \"auth.login\", \"params\": [\"" + currentClient.password + "\"], \"id\": \"1\"}";
-                client.UploadString(new Uri(baseUrl), "POST", dataStringJson1);
+                client.UploadString(new Uri(requestURL), "POST", dataStringJson1);
 
                 string dataStringJson2 = "{\"method\": \"core.add_torrent_magnet\", \"params\": [\"" + magnet + "\", {}], \"id\": \"2\"}";
-                client.UploadString(new Uri(baseUrl), "POST", dataStringJson2);
+                client.UploadString(new Uri(requestURL), "POST", dataStringJson2);
             }
 
             catch (Exception)
