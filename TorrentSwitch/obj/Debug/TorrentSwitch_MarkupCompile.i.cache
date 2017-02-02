@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\obj\Debug\
+D:\CloudStation\c#\TorrentSwitch\TorrentSwitch\obj\Debug\
 TorrentSwitch
 none
 false
 DEBUG;TRACE
-X:\programming_future\c#\TorrentSwitch\TorrentSwitch\App.xaml
-3-63571969
+D:\CloudStation\c#\TorrentSwitch\TorrentSwitch\App.xaml
+327402263
 
-21222158601
-321789595718
-MainWindow.xaml;windows\ClientWindow.xaml;windows\AddWindow.xaml;
+231447748452
+331307601769
+MainWindow.xaml;Window\ClientWindow.xaml;Window\AddWindow.xaml;
 
-False
+True
 

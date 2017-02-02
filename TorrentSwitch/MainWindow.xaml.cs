@@ -11,6 +11,9 @@ using TorrentSwitch.torrent_clients;
 using TorrentSwitch.logic;
 using Settings = TorrentSwitch.torrent_clients.Settings;
 using System.Diagnostics;
+using TorrentSwitch.managers.Deluge;
+using TorrentSwitch.managers.Transmission;
+using TorrentSwitch.managers.UTorrent;
 
 namespace TorrentSwitch
 {
@@ -29,8 +32,8 @@ namespace TorrentSwitch
             _mainWindow = this;
             InitializeComponent();
             ArgumentLoader();
-            SqliteDatabase.check_for_database();
-            SqliteDatabase.load_database();
+            SqliteDatabase.CheckForDatabase();
+            SqliteDatabase.LoadDatabase();
             
             pipeServer.StartAsyncServer();
         }
@@ -111,7 +114,7 @@ namespace TorrentSwitch
             switch (currentType)
             {
                 case ClientType.uTorrent:
-                    if(uTorrent.send_magnet_uri(clientSettings, magnet))
+                    if(UTorrent.send_magnet_uri(clientSettings, magnet))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
@@ -122,7 +125,7 @@ namespace TorrentSwitch
                     break;
 
                 case ClientType.Deluge:
-                    if(Deluge.send_magnet_uri(clientSettings, magnet))
+                    if(Deluge.SendMagnetURI(clientSettings, magnet))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
@@ -170,7 +173,7 @@ namespace TorrentSwitch
             string[] args = Environment.GetCommandLineArgs();
             foreach (var torrentFile in args)
             {
-                    dataGrid_logic.DataGridLoadTarget(torrentFile);
+                logic.dataGrid.DataGridLoadTarget(torrentFile);
             }
         }
 
@@ -195,7 +198,7 @@ namespace TorrentSwitch
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
                 foreach (string torrentFile in torrentList)
-                    dataGrid_logic.DataGridLoadTarget(torrentFile);
+                    logic.dataGrid.DataGridLoadTarget(torrentFile);
             }
         }
         #endregion

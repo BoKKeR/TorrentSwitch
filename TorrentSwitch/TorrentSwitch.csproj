@@ -120,6 +120,10 @@
       <HintPath>..\packages\NamedPipeWrapper.1.5.3-Beta\lib\net40\NamedPipeWrapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -173,20 +177,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="interprocess_communication\pipeClient.cs" />
-    <Compile Include="interprocess_communication\pipeServer.cs" />
-    <Compile Include="logic\dataGrid_logic.cs" />
-    <Compile Include="logic\torrent_logic.cs" />
-    <Compile Include="managers\Deluge.cs" />
-    <Compile Include="managers\Transmission.cs" />
-    <Compile Include="saved_clients\torrent_clients.cs" />
-    <Compile Include="managers\uTorrent.cs" />
-    <Compile Include="sqlite_database.cs" />
-    <Compile Include="windows\ClientWindow.xaml.cs">
+    <Compile Include="IPC\PipeClient.cs" />
+    <Compile Include="IPC\PipeServer.cs" />
+    <Compile Include="Data\DataGrid.cs" />
+    <Compile Include="Data\TorrentHandler.cs" />
+    <Compile Include="Manager\Deluge\Deluge.cs" />
+    <Compile Include="Manager\Deluge\JSONrequest.cs" />
+    <Compile Include="Manager\Deluge\JSONresponse.cs" />
+    <Compile Include="Manager\Transmission.cs" />
+    <Compile Include="SavedClient\TorrentClients.cs" />
+    <Compile Include="Manager\UTorrent.cs" />
+    <Compile Include="SqliteDatabase.cs" />
+    <Compile Include="Window\ClientWindow.xaml.cs">
       <DependentUpon>ClientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="managers\webclient.cs" />
-    <Compile Include="windows\AddWindow.xaml.cs">
+    <Compile Include="Data\Webclient.cs" />
+    <Compile Include="Window\AddWindow.xaml.cs">
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -201,11 +207,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="windows\ClientWindow.xaml">
+    <Page Include="Window\ClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="windows\AddWindow.xaml">
+    <Page Include="Window\AddWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,13 +269,13 @@
     </FileAssociation>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\offline.png" />
+    <Resource Include="Image\offline.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\online.png" />
+    <Resource Include="Image\online.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\icon.ico" />
+    <Resource Include="Image\icon.ico" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
