@@ -28,14 +28,21 @@ namespace TorrentSwitch
 
         public MainWindow()
         {
+
             _mainWindow = this;
             InitializeComponent();
             ArgumentLoader();
             SqliteDatabase.CheckForDatabase();
             SqliteDatabase.LoadDatabase();
+            
             pipeServer.StartAsyncServer();
         }
         
+
+
+
+
+
         /// <summary>
         /// Handles the top client button.
         /// </summary>
@@ -95,7 +102,7 @@ namespace TorrentSwitch
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        public async void send_torrent(object sender, RoutedEventArgs e)
+        public void send_torrent(object sender, RoutedEventArgs e)
         {
             TorrentData row = (TorrentData)dataGrid.SelectedItems[0];
 
@@ -107,7 +114,7 @@ namespace TorrentSwitch
             switch (currentType)
             {
                 case ClientType.uTorrent:
-                    if(UTorrent.SendMagnetURI(clientSettings, magnet))
+                    if(UTorrent.send_magnet_uri(clientSettings, magnet))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
@@ -118,7 +125,7 @@ namespace TorrentSwitch
                     break;
 
                 case ClientType.Deluge:
-                    if(await Deluge.StartTask(clientSettings, magnet))
+                    if(Deluge.SendMagnetURI(clientSettings, magnet))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
@@ -129,7 +136,7 @@ namespace TorrentSwitch
                     break;
 
                 case ClientType.Transmission:
-                    if (Transmission.SendMagnetURI(clientSettings, magnet))
+                    if (Transmission.send_magnet_uri(clientSettings, magnet))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }

@@ -21,6 +21,7 @@
             <ComboBoxItem x:Name="uTorrent" Content="uTorrent" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Deluge" Content="Deluge" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Transmission" Content="Transmission" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem x:Name="qBittorrent" Content="Qbittorrent" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
         <TextBox x:Name="alias_textBox" HorizontalAlignment="Left" Height="23" Margin="67,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
         <TextBlock x:Name="Hostname" HorizontalAlignment="Left" Margin="6,14,0,0" TextWrapping="Wrap" Text="Hostname:" VerticalAlignment="Top"/>

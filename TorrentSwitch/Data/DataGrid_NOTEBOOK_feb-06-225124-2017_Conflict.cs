@@ -10,9 +10,7 @@
         /// <param name="magnet">The magnet.</param>
         public static void DataGridAddRow(string name, string size, string magnet)
         {
-            MainWindow._mainWindow.dataGrid.Items.Add(new MainWindow.TorrentData { Name = name,
-                                                                                   Size = size,
-                                                                                   Magnet = magnet });
+            MainWindow._mainWindow.dataGrid.Items.Add(new MainWindow.TorrentData { Name = name, Size = size, Magnet = magnet });
         }
 
 
@@ -22,13 +20,13 @@
         /// <param name="targetTorrent">The torrent file.</param>
         public static void DataGridLoadTarget(string targetTorrent)
         {
-            if (TorrentHandler.torrent_check(targetTorrent))
+            if (torrentHandler.torrent_check(targetTorrent))
             {
-                dataGrid.DataGridAddRow(TorrentHandler.TorrentInfoExtractor(targetTorrent).Item1,
-                                        TorrentHandler.TorrentInfoExtractor(targetTorrent).Item2,
-                                        TorrentHandler.TorrentInfoExtractor(targetTorrent).Item3);
+                dataGrid.DataGridAddRow(torrentHandler.TorrentInfoExtractor(targetTorrent).Item1,
+                    torrentHandler.TorrentInfoExtractor(targetTorrent).Item2,
+                    torrentHandler.TorrentInfoExtractor(targetTorrent).Item3);
             }
-            if (TorrentHandler.MagnetCheck(targetTorrent))
+            if (torrentHandler.magnet_check(targetTorrent))
             {
                 dataGrid.DataGridAddRow(targetTorrent, "N/A", targetTorrent);
             }

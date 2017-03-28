@@ -6,8 +6,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
-using TorrentSwitch.managers.Deluge.JSONrequest;
-
+using System.Threading.Tasks;
 
 namespace TorrentSwitch.managers.Deluge
 {
@@ -17,7 +16,7 @@ namespace TorrentSwitch.managers.Deluge
         private static CookieAwareWebClient webclient { get; set; }
         private static string URL { get; set; }
 
-        private static void InitializeWebClient()
+        private static void initializeWebClient()
         {
             webclient = new CookieAwareWebClient();
             webclient.Encoding = Encoding.UTF8;
@@ -30,7 +29,7 @@ namespace TorrentSwitch.managers.Deluge
         }
 
         private static byte[] buildRequest(string method, string parameter, string label)
-        { 
+        {
             JArray jarrayObj = new JArray();
             jarrayObj.Add(parameter);
 
@@ -48,7 +47,7 @@ namespace TorrentSwitch.managers.Deluge
                                 new JProperty("method", method),
                                 new JProperty("params", jarrayObj),
                                 new JProperty("id", "1"));
-                                
+
             string json = JsonConvert.SerializeObject(X, Formatting.None);
             byte[] request = Encoding.ASCII.GetBytes(json);
 
@@ -59,8 +58,8 @@ namespace TorrentSwitch.managers.Deluge
 
         private static byte[] sendRequest(string method, string parameter, string label = "") =>
            (webclient.UploadData(URL, "POST", buildRequest(method, parameter, label)));
-           
-        private static string responseToString (byte[] response)
+
+        private static string responseToString(byte[] response)
         {
             MemoryStream output = new MemoryStream();
 
@@ -71,11 +70,18 @@ namespace TorrentSwitch.managers.Deluge
             string JsonResponse = Encoding.UTF8.GetString(output.ToArray());
 
             return JsonResponse;
-        } 
-
-        public static bool SendMagnetURI(Settings currentClient, string magnet)
+        }
+        public static async Task<bool> StartTask(Settings currentClient, string magnet)
         {
-            InitializeWebClient();
+            Task<bool> task = SendMagnetURI(currentClient, magnet);
+            bool result = await task;
+            return result;
+
+        }
+
+        public static async Task<bool> SendMagnetURI(Settings currentClient, string magnet)
+        {
+            initializeWebClient();
             getURL(currentClient);
             
             try
@@ -83,7 +89,7 @@ namespace TorrentSwitch.managers.Deluge
                 // Authorization
                string authorization = responseToString(sendRequest("auth.login", currentClient.password));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -107,29 +113,12 @@ namespace TorrentSwitch.managers.Deluge
             string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
 
         }
-
-        private static string MagnetToHash(string magnet)
-        {
-            string hash = ""; 
-            string[] words = magnet.Split('&');
-            Regex regex = new Regex("btih:(.*)");
-            foreach (string word in words)
-            {
-            Match match = regex.Match(word);
-                if (match.Success)
-                {
-                    hash = match.Value;
-                    hash = hash.Replace("btih:", "");
-                }
-            }
-            return hash; 
-        }
         //private static void CheckForLabel(string label)
         //{
         //    string getLabels = ResponseToString(SendRequest("label.get_labels", "movie", true));
         //    if ()
         //    {
-                
+
         //        CreateLabel(label);
         //    }
         //    else
@@ -147,6 +136,8 @@ namespace TorrentSwitch.managers.Deluge
 
         public static bool CheckStatus(Settings currentClient)
         {
+            initializeWebClient();
+            getURL(currentClient);
             try
             {
                 string authorization = responseToString(sendRequest("auth.login", currentClient.password));
@@ -155,7 +146,6 @@ namespace TorrentSwitch.managers.Deluge
             {
                 return false;
             }
-
             return true;
         }
     }

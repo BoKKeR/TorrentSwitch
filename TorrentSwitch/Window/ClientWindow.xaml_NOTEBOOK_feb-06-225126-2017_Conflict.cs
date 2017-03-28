@@ -18,7 +18,7 @@ namespace TorrentSwitch
         {
             _settingsWindowForm = this;
             InitializeComponent();
-            LoadDataGrid();
+            Load_dataGrid();
         }
 
 
@@ -29,9 +29,9 @@ namespace TorrentSwitch
             
             public string alias { set; get; }
             public string host { set; get; }
-            public string clientType { set; get; }
+            public string client_type { set; get; }
         }
-        public void LoadDataGrid()
+        public void Load_dataGrid()
         {
             
             BitmapImage online = new BitmapImage(new Uri("/Image/online.png", UriKind.Relative));
@@ -40,71 +40,60 @@ namespace TorrentSwitch
             foreach (var setting in torrent_clients.client.users)
             {
                 
-                BitmapImage managerClientStatus = null;
+                BitmapImage actual_status;
                 switch (setting.ManagerClientType) //Checks which type of manager you are adding and checks if the client is online/offline
                 {
                     case ClientType.uTorrent:
-                        {
-                            managerClientStatus = managers.UTorrent.UTorrent.CheckStatus(setting) ? online : offline;
+                    {
+                            actual_status = managers.UTorrent.UTorrent.CheckStatus(setting) ? online : offline;
                             break;
-                        }
+                    }
 
                     case ClientType.Deluge:
-                        {
-                            managerClientStatus = managers.Deluge.Deluge.CheckStatus(setting) ? online : offline;
+                    {
+                            actual_status = managers.Deluge.Deluge.CheckStatus(setting) ? online : offline;
                             break;
-                        }
-                    case ClientType.Transmission:
-                        {
-                            managerClientStatus = managers.Transmission.Transmission.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-                    case ClientType.Qbittorrent:
-                        {
-                            managerClientStatus = managers.Transmission.Transmission.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-
+                    }
                     default:
-                        {
-                            managerClientStatus = managers.Qbittorrent.Qbittorrent.CheckStatus(setting) ? online : offline;
+                    {
+                            actual_status = managers.UTorrent.UTorrent.CheckStatus(setting) ? online : offline; // change to transmission later
                             break;
-                        }
+                    }
                 }
 
                 dataGrid.Items.Add(new manager_data {
                     
-                    status = managerClientStatus,
+                    status = actual_status,
                     alias = setting.alias,
                     host = setting.username + "@" + setting.hostname + ":" + setting.port,
-                    clientType = setting.ManagerClientType.ToString() });
+                    client_type = setting.ManagerClientType.ToString() });
             }
         }
 
-        private void addClick(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             windows.AddWindow add_manager = new windows.AddWindow();
             add_manager.ShowDialog();
         }
         
-        public static void RefreshClients()
+        public static void Refresh_clients()
         {
             _settingsWindowForm.dataGrid.Items.Clear();
-            _settingsWindowForm.LoadDataGrid();
+            _settingsWindowForm.Load_dataGrid();
             
         }
 
-        private void removeClick(object sender, RoutedEventArgs e)
+        private void Remove_Click(object sender, RoutedEventArgs e)
         {
             if (dataGrid.SelectedIndex != -1)
             {
                 manager_data dataRow = (manager_data)dataGrid.SelectedItem;
                 string selectedAlias = dataRow.alias;
                 SqliteDatabase.RemoveEntry(selectedAlias);
-                client.RemoveUser(selectedAlias); 
+                client.removeUser(selectedAlias); 
                 dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                 MainWindow.ColumnRemover(selectedAlias);
-                RefreshClients();
+                Refresh_clients();
             }    
         }
     }

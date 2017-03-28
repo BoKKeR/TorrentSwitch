@@ -22,7 +22,7 @@ namespace TorrentSwitch.torrent_clients
             }
         }
 
-        public static void RemoveUser(string alias)
+        public static void removeUser(string alias)
         {
             users.Remove(GetByAlias(alias));
         }
@@ -82,7 +82,6 @@ namespace TorrentSwitch.torrent_clients
     {
         uTorrent,
         Deluge,
-        Transmission,
-        Qbittorrent
+        Transmission
     }
 }

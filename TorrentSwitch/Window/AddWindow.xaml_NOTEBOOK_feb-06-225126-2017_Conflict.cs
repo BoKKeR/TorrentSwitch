@@ -12,11 +12,12 @@ namespace TorrentSwitch.windows
         public AddWindow()
         {
             InitializeComponent();
+            
         }
 
 
 
-        private void ValidateFields()
+        private void validate_fields()
         {
 
         }
@@ -43,7 +44,7 @@ namespace TorrentSwitch.windows
                 client_type, Custom_Path.Text, 
                 label_textBox.Text);
 
-            ClientWindow.RefreshClients();
+            ClientWindow.Refresh_clients();
             MainWindow.ColumnLoader(alias_textBox.Text);
         }
     }

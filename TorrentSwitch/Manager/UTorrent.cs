@@ -17,34 +17,46 @@ namespace TorrentSwitch.managers.UTorrent
     /// </summary>
     class UTorrent
     {
-        private static string BaseUrl(Settings currentClient)
-        {
-            string url = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
-            return url;
-        }
+
+        private static CookieAwareWebClient webclient { get; set; }
+        private static string URL { get; set; }
+        private static string baseUrl(Settings currentClient)
         
-        public static bool send_magnet_uri(Settings currentClient, string magnet)
         {
-            string requestURL = BaseUrl(currentClient);
+            URL = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
+            return URL;
+        }
 
-            ///READ TOKEN
-            string tokenUrlAddress = requestURL + "token.html";
+        private static void initializeWebClient(Settings currentClient)
+        {
+            webclient = new CookieAwareWebClient();
+            webclient.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
+        }
 
-            CookieAwareWebClient client = new CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
+        private static string getToken(Settings currentClient)
+        {
+            initializeWebClient(currentClient);
+            StreamReader reader = new StreamReader(webclient.OpenRead(URL + "token.html"));
+            string token = reader.ReadToEnd();
+
+            token = Regex.Replace(token, "<.*?>", String.Empty);
+            token = "&token=" + token;
+            return token;
+        }
+        public static bool SendMagnetURI(Settings currentClient, string magnet)
+        {
+            baseUrl(currentClient);
 
             try
             {
-                
-                StreamReader reader = new StreamReader(client.OpenRead(tokenUrlAddress));
-                string token = reader.ReadToEnd();
+            ///READ TOKEN
+            string token = getToken(currentClient);
 
-                token = Regex.Replace(token, "<.*?>", String.Empty);
                 ///SEND MAGNET LINK
-                string addUrl = requestURL + "?action=add-url&s=" + System.Uri.EscapeDataString(magnet) + "&token=" + token;
-                client.OpenRead(addUrl);
+                string addUrl = URL + "?action=add-url&s=" + System.Uri.EscapeDataString(magnet) + token;
+                webclient.OpenRead(addUrl);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -55,21 +67,15 @@ namespace TorrentSwitch.managers.UTorrent
 
         public static bool CheckStatus(Settings currentClient)
         {
-            
 
-            string baseUrl = "http://" + currentClient.hostname + ":" + currentClient.port + "/gui/";
-            
-            ///READ TOKEN
-            string tokenUrlAddress = baseUrl + "token.html";
+            baseUrl(currentClient);
 
-            CookieAwareWebClient client = new CookieAwareWebClient();
-            client.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
-            Debug.WriteLine(currentClient.hostname);
             try
             {
-                client.OpenRead(tokenUrlAddress);
+                ///READ TOKEN
+                string token = getToken(currentClient);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TorrentSwitch.logic
 {
-    class TorrentHandler
+    class torrentHandler
     {
-        public static Boolean MagnetCheck(string torrent)
+        public static Boolean magnet_check(string torrent)
         {
             if (torrent.StartsWith("magnet:?"))
             {
@@ -74,29 +73,12 @@ namespace TorrentSwitch.logic
             switch (torrent.FileMode)
             {
                 case TorrentFileMode.Single:
-                    return Tuple.Create(torrent.File.FileName, logic.TorrentHandler.SizeSuffix(torrent.File.FileSize), torrent.GetMagnetLink());
+                    return Tuple.Create(torrent.File.FileName, logic.torrentHandler.SizeSuffix(torrent.File.FileSize), torrent.GetMagnetLink());
                 case TorrentFileMode.Multi:
-                    return Tuple.Create(torrent.Files.DirectoryName, logic.TorrentHandler.SizeSuffix(torrent.TotalSize), torrent.GetMagnetLink());
+                    return Tuple.Create(torrent.Files.DirectoryName, logic.torrentHandler.SizeSuffix(torrent.TotalSize), torrent.GetMagnetLink());
                 default:
                     return Tuple.Create("Not recognized", "Not recognized", "Not recognized");
             }
-        }
-
-        public static string MagnetToHash(string magnet)
-        {
-            string hash = "";
-            string[] words = magnet.Split('&');
-            Regex regex = new Regex("btih:(.*)");
-            foreach (string word in words)
-            {
-                Match match = regex.Match(word);
-                if (match.Success)
-                {
-                    hash = match.Value;
-                    hash = hash.Replace("btih:", "");
-                }
-            }
-            return hash;
         }
     }
 

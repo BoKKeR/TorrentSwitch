@@ -181,8 +181,9 @@
     <Compile Include="IPC\PipeServer.cs" />
     <Compile Include="Data\DataGrid.cs" />
     <Compile Include="Data\TorrentHandler.cs" />
-    <Compile Include="Manager\Deluge.cs" />
-    <Compile Include="Manager\Qbittorrent.cs" />
+    <Compile Include="Manager\Deluge\Deluge.cs" />
+    <Compile Include="Manager\Deluge\JSONrequest.cs" />
+    <Compile Include="Manager\Deluge\JSONresponse.cs" />
     <Compile Include="Manager\Transmission.cs" />
     <Compile Include="SavedClient\TorrentClients.cs" />
     <Compile Include="Manager\UTorrent.cs" />

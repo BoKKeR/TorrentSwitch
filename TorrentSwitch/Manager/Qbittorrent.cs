@@ -10,9 +10,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TorrentSwitch.torrent_clients;
 
-namespace TorrentSwitch.managers.Transmission
+namespace TorrentSwitch.managers.Qbittorrent
 {
-    public class Transmission
+    public class Qbittorrent
     {
 
         private static CookieAwareWebClient webclient { get; set; }
@@ -72,7 +72,6 @@ namespace TorrentSwitch.managers.Transmission
             {
                 webclient.UploadString(URL, "getToken");
             }
-            
             catch (WebException ex)
             {
                 string token = ex.Response.Headers["X-Transmission-Session-Id"];
