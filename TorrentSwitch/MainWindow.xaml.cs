@@ -11,9 +11,7 @@ using TorrentSwitch.torrent_clients;
 using TorrentSwitch.logic;
 using Settings = TorrentSwitch.torrent_clients.Settings;
 using System.Diagnostics;
-using TorrentSwitch.managers.Deluge;
-using TorrentSwitch.managers.Transmission;
-using TorrentSwitch.managers.UTorrent;
+
 
 namespace TorrentSwitch
 {

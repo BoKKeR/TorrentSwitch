@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TorrentSwitch.torrent_clients;
 
-namespace TorrentSwitch.managers.Transmission
+namespace TorrentSwitch.managers
 {
     public class Transmission
     {
@@ -26,7 +26,7 @@ namespace TorrentSwitch.managers.Transmission
             webclient.Credentials = new NetworkCredential(currentClient.username, currentClient.password);
             webclient.Headers.Set("content-type", "application/json");
             // Get-Set token
-            string token = getToken(currentClient);
+            token = getToken(currentClient);
             webclient.Headers.Set("X-Transmission-Session-Id", token);
         }
 
@@ -68,6 +68,7 @@ namespace TorrentSwitch.managers.Transmission
 
         private static string getToken(Settings currentClient)
         {
+            token = null;
             try
             {
                 webclient.UploadString(URL, "getToken");
@@ -75,17 +76,19 @@ namespace TorrentSwitch.managers.Transmission
             
             catch (WebException ex)
             {
-                string token = ex.Response.Headers["X-Transmission-Session-Id"];
-                return token;
+                //token = ex.Response.Headers["X-Transmission-Session-Id"];
+                if (ex.Message != "Unable to connect to the remote server")
+                {
+                     token = ex.Response.Headers["X-Transmission-Session-Id"];
+                }
             }
-            return null;
+            return token;
         }
 
         public static bool SendMagnetURI(Settings currentClient, string magnet)
         {
             getURL(currentClient);
             initializeWebClient(currentClient);
-            string hash = "9f9165d9a281a9b8e782cd5176bbcc8256fd1871";
             string token = getToken(currentClient);
 
             //TorrentAdding
@@ -93,12 +96,12 @@ namespace TorrentSwitch.managers.Transmission
             
             return true;
         }
-        private static void setLabel(string label, string magnet)
-        {
+        //private static void setLabel(string label, string magnet)
+        //{
 
-            string hash = logic.TorrentHandler.MagnetToHash(magnet);
-            string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
-        }
+        //    string hash = logic.TorrentHandler.MagnetToHash(magnet);
+        //    string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
+        //}
 
         public static bool CheckStatus(Settings currentClient)
         {
@@ -108,7 +111,7 @@ namespace TorrentSwitch.managers.Transmission
             {
                 string authorization = responseToString(sendRequest("auth.login", currentClient.password));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

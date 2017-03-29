@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TorrentSwitch.torrent_clients;
 
-namespace TorrentSwitch.managers.Qbittorrent
+namespace TorrentSwitch.managers
 {
     public class Qbittorrent
     {
@@ -84,7 +84,6 @@ namespace TorrentSwitch.managers.Qbittorrent
         {
             getURL(currentClient);
             initializeWebClient(currentClient);
-            string hash = "9f9165d9a281a9b8e782cd5176bbcc8256fd1871";
             string token = getToken(currentClient);
 
             //TorrentAdding
@@ -92,17 +91,18 @@ namespace TorrentSwitch.managers.Qbittorrent
             
             return true;
         }
-        private static void setLabel(string label, string magnet)
-        {
+        //private static void setLabel(string label, string magnet)
+        //{
 
-            string hash = logic.TorrentHandler.MagnetToHash(magnet);
-            string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
-        }
+        //    string hash = logic.TorrentHandler.MagnetToHash(magnet);
+        //    string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
+        //}
 
         public static bool CheckStatus(Settings currentClient)
         {
             getURL(currentClient);
             initializeWebClient(currentClient);
+
             try
             {
                 string authorization = responseToString(sendRequest("auth.login", currentClient.password));

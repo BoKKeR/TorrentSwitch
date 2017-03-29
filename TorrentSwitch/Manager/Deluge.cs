@@ -8,7 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 
-namespace TorrentSwitch.managers.Deluge
+namespace TorrentSwitch.managers
 {
 
     class Deluge

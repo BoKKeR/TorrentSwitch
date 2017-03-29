@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using TorrentSwitch.torrent_clients;
 
-namespace TorrentSwitch.managers.UTorrent
+namespace TorrentSwitch.managers
 {
     /// <summary>
     /// Here is uTorrent client managed, sending a torrent magnet link to the client. And checking the status

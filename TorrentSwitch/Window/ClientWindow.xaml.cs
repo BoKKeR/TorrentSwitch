@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
 using TorrentSwitch.torrent_clients;
+using System.Threading.Tasks;
 
 namespace TorrentSwitch
 {
@@ -19,11 +20,47 @@ namespace TorrentSwitch
             _settingsWindowForm = this;
             InitializeComponent();
             LoadDataGrid();
+
+        }
+
+        //static async Task<bool> Example(Settings setting)
+        //{
+        //    // This method runs asynchronously.
+        //    bool t = await Task.Run(() => Allocate(setting));
+        //    return t;      
+        //}
+
+        static bool CheckClientStatus(Settings setting)
+        {
+            switch (setting.ManagerClientType)
+            {
+
+                case ClientType.uTorrent:
+                    {
+                        return managers.UTorrent.CheckStatus(setting);
+                    }
+
+                case ClientType.Deluge:
+                    {
+                        return managers.Deluge.CheckStatus(setting);
+                    }
+                case ClientType.Transmission:
+                    {
+                        return managers.Transmission.CheckStatus(setting);
+                    }
+                case ClientType.Qbittorrent:
+                    {
+                        return managers.Qbittorrent.CheckStatus(setting);
+                    }
+                default:
+                    {
+                        return managers.UTorrent.CheckStatus(setting);
+                    }
+            }
         }
 
 
-
-        public struct manager_data
+        public struct managerData
         {
             public BitmapImage status { set; get; }
             
@@ -31,53 +68,28 @@ namespace TorrentSwitch
             public string host { set; get; }
             public string clientType { set; get; }
         }
-        public void LoadDataGrid()
+
+
+        public async void LoadDataGrid()
         {
-            
+
             BitmapImage online = new BitmapImage(new Uri("/Image/online.png", UriKind.Relative));
             BitmapImage offline = new BitmapImage(new Uri("/Image/offline.png", UriKind.Relative));
 
             foreach (var setting in torrent_clients.client.users)
             {
-                
+
                 BitmapImage managerClientStatus = null;
-                switch (setting.ManagerClientType) //Checks which type of manager you are adding and checks if the client is online/offline
+                
+                managerClientStatus = await Task.Run(() => CheckClientStatus(setting)) ? online : offline;
+                
+                dataGrid.Items.Add(new managerData
                 {
-                    case ClientType.uTorrent:
-                        {
-                            managerClientStatus = managers.UTorrent.UTorrent.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-
-                    case ClientType.Deluge:
-                        {
-                            managerClientStatus = managers.Deluge.Deluge.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-                    case ClientType.Transmission:
-                        {
-                            managerClientStatus = managers.Transmission.Transmission.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-                    case ClientType.Qbittorrent:
-                        {
-                            managerClientStatus = managers.Transmission.Transmission.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-
-                    default:
-                        {
-                            managerClientStatus = managers.Qbittorrent.Qbittorrent.CheckStatus(setting) ? online : offline;
-                            break;
-                        }
-                }
-
-                dataGrid.Items.Add(new manager_data {
-                    
                     status = managerClientStatus,
                     alias = setting.alias,
                     host = setting.username + "@" + setting.hostname + ":" + setting.port,
-                    clientType = setting.ManagerClientType.ToString() });
+                    clientType = setting.ManagerClientType.ToString()
+                });
             }
         }
 
@@ -98,7 +110,7 @@ namespace TorrentSwitch
         {
             if (dataGrid.SelectedIndex != -1)
             {
-                manager_data dataRow = (manager_data)dataGrid.SelectedItem;
+                managerData dataRow = (managerData)dataGrid.SelectedItem;
                 string selectedAlias = dataRow.alias;
                 SqliteDatabase.RemoveEntry(selectedAlias);
                 client.RemoveUser(selectedAlias); 
