@@ -32,13 +32,16 @@ Loading torrents as arguments
 
 
 
-## Supported torrent clients
-uTorrent
-
-Deluge
+## Supported Torrent Clients
+| Clients        | Send torrent | Set label  | Set custom path  |
+| ------------- |:-------------:| -----:|-----:|
+| uTorrent      | <img height="20" width="20" src ="TorrentSwitch/Image/online.png"> | <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> | <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |
+| Deluge      | <img height="20" width="20" src ="TorrentSwitch/Image/online.png"> |   <img height="20" width="20" src ="TorrentSwitch/Image/online.png">|  <img height="20" width="20" src ="TorrentSwitch/Image/offline.png">  |
+| Transmission | <img height="20" width="20" src ="TorrentSwitch/Image/online.png"> |     <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |   <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |
+| qBittorrent | <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |   <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |  <img height="20" width="20" src ="TorrentSwitch/Image/offline.png"> |
 
 ## Future planned torrent clients
-Transmission
+qBittorrent
 
 Contact me if you have a client you would like added.
 
