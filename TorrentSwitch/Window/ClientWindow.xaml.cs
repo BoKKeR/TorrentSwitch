@@ -37,6 +37,7 @@ namespace TorrentSwitch
                     {
                         return managers.Deluge.CheckStatus(setting);
                     }
+                    
                 case ClientType.Transmission:
                     {
                         return managers.Transmission.CheckStatus(setting);

@@ -22,7 +22,7 @@
         /// <param name="targetTorrent">The torrent file.</param>
         public static void LoadTarget(string targetTorrent)
         {
-            if (TorrentHandler.torrent_check(targetTorrent))
+            if (TorrentHandler.torrentCheck(targetTorrent))
             {
                 dataGrid.DataGridAddRow(TorrentHandler.TorrentInfoExtractor(targetTorrent).Item1,
                                         TorrentHandler.TorrentInfoExtractor(targetTorrent).Item2,

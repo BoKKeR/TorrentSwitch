@@ -12,6 +12,7 @@ namespace TorrentSwitch.logic
 {
     class TorrentHandler
     {
+        public static Torrent torrent { get; set; }
         public static Boolean MagnetCheck(string torrent)
         {
             if (torrent.StartsWith("magnet:?"))
@@ -41,7 +42,7 @@ namespace TorrentSwitch.logic
         /// </summary>
         /// <param name="torrent">The torrent.</param>
         /// <returns></returns>
-        public static Boolean torrent_check(string torrent)
+        public static bool torrentCheck(string torrent)
         {
             if (torrent.EndsWith(".torrent") && (File.Exists(torrent)))
             {
@@ -49,7 +50,7 @@ namespace TorrentSwitch.logic
             }
             return false;
         }
-        public static Torrent torrent { get; set; }
+
 
 
         /// <summary>

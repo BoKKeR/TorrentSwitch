@@ -71,15 +71,8 @@ namespace TorrentSwitch.managers
 
             return JsonResponse;
         }
-        public static async Task<bool> StartTask(Settings currentClient, string magnet)
-        {
-            Task<bool> task = SendMagnetURI(currentClient, magnet);
-            bool result = await task;
-            return result;
 
-        }
-
-        public static async Task<bool> SendMagnetURI(Settings currentClient, string magnet)
+        public static bool SendMagnetURI(Settings currentClient, string magnet)
         {
             initializeWebClient();
             getURL(currentClient);
@@ -89,7 +82,7 @@ namespace TorrentSwitch.managers
                 // Authorization
                string authorization = responseToString(sendRequest("auth.login", currentClient.password));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
@@ -142,7 +135,7 @@ namespace TorrentSwitch.managers
             {
                 string authorization = responseToString(sendRequest("auth.login", currentClient.password));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }
