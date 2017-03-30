@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
 using MahApps.Metro.Controls;
+using System.Windows.Controls;
+using System.Linq;
 
 namespace TorrentSwitch.windows
 {
@@ -19,6 +21,44 @@ namespace TorrentSwitch.windows
         private void ValidateFields()
         {
 
+        }
+
+        private void type_comboBox_SelectedItemChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+            int selectedIndex = type_comboBox.SelectedIndex;
+            Object selectedItem = type_comboBox.SelectedItem;
+
+            string tempItem = selectedItem.ToString();
+            //STUPID HACK NEEDS TO BE FIXED
+            string item = tempItem.Split(' ').Last();
+            //STUPID HACK NEEDS TO BE FIXED
+            switch (item)
+            {
+                case "uTorrent":
+                    {
+                        port_textBox.Text = "";
+                    }
+                    break;
+
+                case "Transmission":
+                    {
+                        port_textBox.Text = "9091";
+                    }
+                    break;
+
+                case "Deluge":
+                    {
+                        port_textBox.Text = "8112";
+                    }
+                    break;
+
+                case "qBittorrent":
+                    {
+                        port_textBox.Text = "";
+                    }
+                    break;
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -46,5 +86,15 @@ namespace TorrentSwitch.windows
             ClientWindow.RefreshClients();
             MainWindow.ColumnLoader(alias_textBox.Text);
         }
+
+        private void type_comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //private void type_comboBox_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        //{
+
+        //}
     }
 }

@@ -10,32 +10,34 @@
         TitleCaps="False"
         ResizeMode="NoResize"
         GlowBrush="{DynamicResource AccentColorBrush}"
-        Title="Add client" Height="271.333" Width="370" WindowStartupLocation="CenterOwner">
+        Title="Add client" Height="316.041" Width="370" WindowStartupLocation="CenterOwner">
     <Grid>
-        <Button x:Name="button" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="340" Content="Add" RenderTransformOrigin="0.529,-2.046" Click="button_Click"/>
-        <TextBox x:Name="hostname_textBox" HorizontalAlignment="Left" Height="23" Margin="67,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <TextBox x:Name="port_textBox" HorizontalAlignment="Left" Height="23" Margin="275,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
-        <TextBox x:Name="username_textBox" HorizontalAlignment="Left" Height="23" Margin="67,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="67,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.498,0.471" Width="283"/>
-        <ComboBox x:Name="type_comboBox" HorizontalAlignment="Left" Margin="275,105,0,0" VerticalAlignment="Top" Width="75" IsReadOnly="True">
+        <Button x:Name="button" HorizontalAlignment="Left" Margin="14,251,0,0" VerticalAlignment="Top" Width="336" Content="Add" RenderTransformOrigin="0.529,-2.046" Click="button_Click" Height="24"/>
+        <TextBox x:Name="hostname_textBox" HorizontalAlignment="Left" Height="23" Margin="72,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
+        <TextBox x:Name="port_textBox" HorizontalAlignment="Left" Height="23" Margin="269,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
+        <TextBox x:Name="username_textBox" HorizontalAlignment="Left" Height="23" Margin="71,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="71,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.498,0.471" Width="279"/>
+        <ComboBox x:Name="type_comboBox" HorizontalAlignment="Left" Margin="71,5,0,0" VerticalAlignment="Top" Width="279" IsReadOnly="True" SelectionChanged="type_comboBox_SelectedItemChanged">
             <ComboBoxItem x:Name="uTorrent" Content="uTorrent" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Deluge" Content="Deluge" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Transmission" Content="Transmission" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="qBittorrent" Content="Qbittorrent" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
-        <TextBox x:Name="alias_textBox" HorizontalAlignment="Left" Height="23" Margin="67,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <TextBlock x:Name="Hostname" HorizontalAlignment="Left" Margin="6,14,0,0" TextWrapping="Wrap" Text="Hostname:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="245,14,0,0" TextWrapping="Wrap" Text="Port:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Username" HorizontalAlignment="Left" Margin="6,45,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="6,77,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Alias" HorizontalAlignment="Left" Margin="6,109,0,0" TextWrapping="Wrap" Text="Alias:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Type" HorizontalAlignment="Left" Margin="244,109,0,0" TextWrapping="Wrap" Text="Type" VerticalAlignment="Top" RenderTransformOrigin="1.986,0.613"/>
-        <Separator HorizontalAlignment="Left" Height="7" Margin="6,136,0,0" VerticalAlignment="Top" Width="147"/>
-        <TextBox x:Name="path_textBox" HorizontalAlignment="Left" Height="23" Margin="82,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" IsEnabled="True"/>
-        <TextBlock x:Name="Optional" HorizontalAlignment="Left" Margin="158,130,0,0" TextWrapping="Wrap" Text="Optional" VerticalAlignment="Top"/>
-        <Separator HorizontalAlignment="Left" Height="7" Margin="209,136,0,0" VerticalAlignment="Top" Width="141"/>
-        <TextBox x:Name="label_textBox" HorizontalAlignment="Left" Height="23" Margin="82,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" IsEnabled="True"/>
-        <TextBlock x:Name="Custom_Path" HorizontalAlignment="Left" Margin="6,152,0,0" TextWrapping="Wrap" Text="Custom path:" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Label" HorizontalAlignment="Left" Margin="6,183,0,0" TextWrapping="Wrap" Text="Label:" VerticalAlignment="Top"/>
+        <TextBox x:Name="alias_textBox" HorizontalAlignment="Left" Height="23" Margin="71,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
+        <TextBlock x:Name="Hostname" HorizontalAlignment="Left" Margin="10,85,0,0" TextWrapping="Wrap" Text="Hostname:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="239,82,0,0" TextWrapping="Wrap" Text="Port:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Username" HorizontalAlignment="Left" Margin="10,115,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="10,147,0,0" TextWrapping="Wrap" Text="Password:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Alias" HorizontalAlignment="Left" Margin="10,47,0,0" TextWrapping="Wrap" Text="Alias:" VerticalAlignment="Top" RenderTransformOrigin="0.694,-1.357"/>
+        <TextBlock x:Name="Type" HorizontalAlignment="Left" Margin="10,13,0,0" TextWrapping="Wrap" Text="Type" VerticalAlignment="Top" RenderTransformOrigin="1.986,0.613"/>
+        <Separator HorizontalAlignment="Left" Height="7" Margin="10,177,0,0" VerticalAlignment="Top" Width="147"/>
+        <TextBox x:Name="path_textBox" HorizontalAlignment="Left" Height="23" Margin="86,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" IsEnabled="True"/>
+        <TextBlock x:Name="Optional" HorizontalAlignment="Left" Margin="162,171,0,0" TextWrapping="Wrap" Text="Optional" VerticalAlignment="Top"/>
+        <Separator HorizontalAlignment="Left" Height="7" Margin="213,177,0,0" VerticalAlignment="Top" Width="137"/>
+        <TextBox x:Name="label_textBox" HorizontalAlignment="Left" Height="23" Margin="86,220,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="264" IsEnabled="True"/>
+        <TextBlock x:Name="Custom_Path" HorizontalAlignment="Left" Margin="10,193,0,0" TextWrapping="Wrap" Text="Custom path:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Label" HorizontalAlignment="Left" Margin="10,224,0,0" TextWrapping="Wrap" Text="Label:" VerticalAlignment="Top"/>
+        <Separator HorizontalAlignment="Left" Height="11" Margin="10,31,0,0" VerticalAlignment="Top" Width="340"/>
+        <Separator HorizontalAlignment="Left" Height="11" Margin="10,68,0,0" VerticalAlignment="Top" Width="340"/>
     </Grid>
 </Controls:MetroWindow>
