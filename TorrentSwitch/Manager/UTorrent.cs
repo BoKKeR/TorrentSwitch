@@ -61,8 +61,6 @@ namespace TorrentSwitch.managers
                 return false;
             }
             return true;
-
-
         }
 
         public static bool CheckStatus(Settings currentClient)

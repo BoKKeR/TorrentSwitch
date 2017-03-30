@@ -20,7 +20,7 @@
         /// Loads the torrent to the dataGrid
         /// </summary>
         /// <param name="targetTorrent">The torrent file.</param>
-        public static void DataGridLoadTarget(string targetTorrent)
+        public static void LoadTarget(string targetTorrent)
         {
             if (TorrentHandler.torrent_check(targetTorrent))
             {

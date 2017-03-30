@@ -18,7 +18,7 @@ class pipeServer
 
         await pipeServer.messagingServer();
         {
-            dataGrid.DataGridLoadTarget(makeTask.Result);
+            dataGrid.LoadTarget(makeTask.Result);
             StartAsyncServer();
         }
     }

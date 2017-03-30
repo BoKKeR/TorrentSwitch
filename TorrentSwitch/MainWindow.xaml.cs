@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using BencodeNET.Torrents;
-using BencodeNET.Parsing;
 using MahApps.Metro.Controls;
-using System.IO;
-using System.Threading.Tasks;
 using TorrentSwitch.managers;
 using TorrentSwitch.torrent_clients;
-using TorrentSwitch.logic;
 using Settings = TorrentSwitch.torrent_clients.Settings;
-using System.Diagnostics;
 
 
 namespace TorrentSwitch
@@ -53,12 +47,15 @@ namespace TorrentSwitch
         /// <param name="alias">The alias.</param>
         public static void ColumnLoader(string alias)
         {
-            var buttonTemplate = new FrameworkElementFactory(typeof(Button));
-            //buttonTemplate.SetBinding(Button.ContentProperty, new Binding("button"));
-            
+            FrameworkElementFactory buttonTemplate = new FrameworkElementFactory (typeof(Button));
+            var text = new FrameworkElementFactory(typeof(TextBlock));
+            text.SetValue(TextBlock.TextProperty, alias);
+            buttonTemplate.AppendChild(text);
+
             buttonTemplate.AddHandler(
                 Button.ClickEvent,
                 new RoutedEventHandler((o, e) => _mainWindow.send_torrent(o, e))
+                
             );
 
             _mainWindow.dataGrid.Columns.Add(
@@ -164,7 +161,7 @@ namespace TorrentSwitch
             string[] args = Environment.GetCommandLineArgs();
             foreach (var torrentFile in args)
             {
-                logic.dataGrid.DataGridLoadTarget(torrentFile);
+                logic.dataGrid.LoadTarget(torrentFile);
             }
         }
 
@@ -182,14 +179,14 @@ namespace TorrentSwitch
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="DragEventArgs"/> instance containing the event data.</param>
-        private void dataGrid_Drop(object sender, DragEventArgs e)
+        private void dataGridDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] torrentList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
                 foreach (string torrentFile in torrentList)
-                    logic.dataGrid.DataGridLoadTarget(torrentFile);
+                    logic.dataGrid.LoadTarget(torrentFile);
             }
         }
         #endregion

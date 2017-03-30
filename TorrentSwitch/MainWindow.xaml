@@ -35,7 +35,7 @@
         <Grid Name="MainGrid" Grid.ColumnSpan="5">
             <DataGrid x:Name="dataGrid" 
                   CurrentColumn="{Binding Column}"
-                  Drop="dataGrid_Drop"
+                  Drop="dataGridDrop"
                   Margin="10" 
                   
                   GridLinesVisibility="All" 

@@ -23,13 +23,6 @@ namespace TorrentSwitch
 
         }
 
-        //static async Task<bool> Example(Settings setting)
-        //{
-        //    // This method runs asynchronously.
-        //    bool t = await Task.Run(() => Allocate(setting));
-        //    return t;      
-        //}
-
         static bool CheckClientStatus(Settings setting)
         {
             switch (setting.ManagerClientType)
@@ -60,14 +53,6 @@ namespace TorrentSwitch
         }
 
 
-        public struct managerData
-        {
-            public BitmapImage status { set; get; }
-            
-            public string alias { set; get; }
-            public string host { set; get; }
-            public string clientType { set; get; }
-        }
 
 
         public async void LoadDataGrid()
@@ -91,6 +76,14 @@ namespace TorrentSwitch
                     clientType = setting.ManagerClientType.ToString()
                 });
             }
+        }
+        public struct managerData
+        {
+            public BitmapImage status { set; get; }
+            
+            public string alias { set; get; }
+            public string host { set; get; }
+            public string clientType { set; get; }
         }
 
         private void addClick(object sender, RoutedEventArgs e)
