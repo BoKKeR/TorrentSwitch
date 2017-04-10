@@ -1,5 +1,5 @@
 ﻿using System;
-using TorrentSwitch.torrent_clients;
+using TorrentSwitch.torrentClients;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace TorrentSwitch.managers
 {
-
     class Deluge
     {
         private static CookieAwareWebClient webclient { get; set; }

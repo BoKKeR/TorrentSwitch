@@ -9,14 +9,11 @@
         BorderThickness="2" 
         TitleCaps="False"
         ResizeMode="NoResize"
+        Icon="/Image/icon.ico"
         GlowBrush="{DynamicResource AccentColorBrush}"
         Title="Add client" Height="316.041" Width="370" WindowStartupLocation="CenterOwner">
     <Grid>
         <Button x:Name="button" HorizontalAlignment="Left" Margin="14,251,0,0" VerticalAlignment="Top" Width="336" Content="Add" RenderTransformOrigin="0.529,-2.046" Click="button_Click" Height="24"/>
-        <TextBox x:Name="hostname_textBox" HorizontalAlignment="Left" Height="23" Margin="72,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
-        <TextBox x:Name="port_textBox" HorizontalAlignment="Left" Height="23" Margin="269,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
-        <TextBox x:Name="username_textBox" HorizontalAlignment="Left" Height="23" Margin="71,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="71,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.498,0.471" Width="279"/>
         <ComboBox x:Name="type_comboBox" HorizontalAlignment="Left" Margin="71,5,0,0" VerticalAlignment="Top" Width="279" IsReadOnly="True" SelectionChanged="type_comboBox_SelectedItemChanged">
             <ComboBoxItem x:Name="uTorrent" Content="uTorrent" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Deluge" Content="Deluge" HorizontalAlignment="Left" Width="118"/>
@@ -24,6 +21,10 @@
             <ComboBoxItem x:Name="qBittorrent" Content="Qbittorrent" HorizontalAlignment="Left" Width="118"/>
         </ComboBox>
         <TextBox x:Name="alias_textBox" HorizontalAlignment="Left" Height="23" Margin="71,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
+        <TextBox x:Name="hostname_textBox" HorizontalAlignment="Left" Height="23" Margin="72,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
+        <TextBox x:Name="port_textBox" HorizontalAlignment="Left" Height="23" Margin="269,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"/>
+        <TextBox x:Name="username_textBox" HorizontalAlignment="Left" Height="23" Margin="71,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="71,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.498,0.471" Width="279"/>
         <TextBlock x:Name="Hostname" HorizontalAlignment="Left" Margin="10,85,0,0" TextWrapping="Wrap" Text="Hostname:" VerticalAlignment="Top"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="239,82,0,0" TextWrapping="Wrap" Text="Port:" VerticalAlignment="Top"/>
         <TextBlock x:Name="Username" HorizontalAlignment="Left" Margin="10,115,0,0" TextWrapping="Wrap" Text="Username:" VerticalAlignment="Top"/>

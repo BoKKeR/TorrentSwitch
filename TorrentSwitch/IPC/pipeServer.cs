@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Amazon.S3.Model;
 using TinyIpc.Messaging;
 using TorrentSwitch;
 using TorrentSwitch.logic;

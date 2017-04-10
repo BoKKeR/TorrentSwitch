@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:TorrentSwitch"
         xmlns:properties="clr-namespace:TorrentSwitch.Properties"
         mc:Ignorable="d"
-        Icon="Image/icon.ico"
+        Icon="/Image/icon.ico"
         
         Title="TorrentSwitch" Height="350" Width="525"
         BorderThickness="2" 

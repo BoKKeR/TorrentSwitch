@@ -94,9 +94,9 @@ namespace TorrentSwitch
             while (reader.Read())
             {
                 MainWindow.ColumnLoader(reader["alias"].ToString());
-                torrent_clients.ClientType client_type = (torrent_clients.ClientType)Enum.Parse(typeof(torrent_clients.ClientType), reader["type"].ToString());
+                torrentClients.ClientType client_type = (torrentClients.ClientType)Enum.Parse(typeof(torrentClients.ClientType), reader["type"].ToString());
 
-                torrent_clients.client.AddUser(
+                torrentClients.client.AddUser(
                     reader["alias"].ToString(),
                     reader["hostname"].ToString(),
                     reader["port"].ToString(),

@@ -8,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TorrentSwitch.torrent_clients;
+using TorrentSwitch.torrentClients;
 
 namespace TorrentSwitch.managers
 {

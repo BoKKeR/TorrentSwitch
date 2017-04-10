@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Clients" Height="260" Width="440"
         BorderThickness="2" 
+        Icon="/Image/icon.ico"
         TitleCaps="False"
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterOwner">
@@ -31,7 +32,7 @@
                 
                 <DataGridTextColumn Header="Alias" Width="65" Binding="{Binding alias}" />
                 <DataGridTextColumn Header="Host" Width="*" Binding="{Binding host}"  />
-                <DataGridTextColumn Header="Type" Width="80" Binding="{Binding client_type}" />
+                <DataGridTextColumn Header="Type" Width="80" Binding="{Binding clientType}" />
             </DataGrid.Columns>
                     
         </DataGrid>

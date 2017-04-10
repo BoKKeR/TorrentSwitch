@@ -3,8 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using MahApps.Metro.Controls;
 using TorrentSwitch.managers;
-using TorrentSwitch.torrent_clients;
-using Settings = TorrentSwitch.torrent_clients.Settings;
+using TorrentSwitch.torrentClients;
+using Settings = TorrentSwitch.torrentClients.Settings;
 using System.Threading.Tasks;
 
 namespace TorrentSwitch

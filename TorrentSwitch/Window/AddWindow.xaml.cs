@@ -18,11 +18,6 @@ namespace TorrentSwitch.windows
 
 
 
-        private void ValidateFields()
-        {
-
-        }
-
         private void type_comboBox_SelectedItemChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
@@ -60,11 +55,30 @@ namespace TorrentSwitch.windows
                     break;
             }
         }
+        internal bool ValidateFields()
+        {
+
+            if (!string.IsNullOrEmpty(alias_textBox.Text) &&
+                !string.IsNullOrEmpty(hostname_textBox.Text) &&
+                !string.IsNullOrEmpty(port_textBox.Text) &&
+                !string.IsNullOrEmpty(username_textBox.Text) &&
+                !string.IsNullOrEmpty(passwordBox.Password) &&
+                !string.IsNullOrEmpty(type_comboBox.Text))
+                //add int check for port. 
+                //add path check for path
+                //check for illegal characters
+                return true;
+            else
+                return false;
+        }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
-            torrent_clients.ClientType client_type = (torrent_clients.ClientType)Enum.Parse(typeof(torrent_clients.ClientType), type_comboBox.Text);
+
+            if (ValidateFields())
+            {
+
+            torrentClients.ClientType client_type = (torrentClients.ClientType)Enum.Parse(typeof(torrentClients.ClientType), type_comboBox.Text);
             SqliteDatabase.AddEntry(
                 alias_textBox.Text, 
                 hostname_textBox.Text, 
@@ -75,7 +89,7 @@ namespace TorrentSwitch.windows
                 Custom_Path.Text, 
                 label_textBox.Text);
 
-            torrent_clients.client.AddUser(alias_textBox.Text, 
+            torrentClients.client.AddUser(alias_textBox.Text, 
                 hostname_textBox.Text, 
                 port_textBox.Text, 
                 username_textBox.Text, 
@@ -85,6 +99,7 @@ namespace TorrentSwitch.windows
 
             ClientWindow.RefreshClients();
             MainWindow.ColumnLoader(alias_textBox.Text);
+            }
         }
 
         private void type_comboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

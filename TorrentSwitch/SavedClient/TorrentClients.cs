@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TorrentSwitch.torrent_clients
+namespace TorrentSwitch.torrentClients
 {
     public static class client
     {

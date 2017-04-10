@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
-using TorrentSwitch.torrent_clients;
+using TorrentSwitch.torrentClients;
 using System.Threading.Tasks;
 
 namespace TorrentSwitch
@@ -62,13 +62,13 @@ namespace TorrentSwitch
             BitmapImage online = new BitmapImage(new Uri("/Image/online.png", UriKind.Relative));
             BitmapImage offline = new BitmapImage(new Uri("/Image/offline.png", UriKind.Relative));
 
-            foreach (var setting in torrent_clients.client.users)
+            foreach (var setting in torrentClients.client.users)
             {
 
                 BitmapImage managerClientStatus = null;
                 
                 managerClientStatus = await Task.Run(() => CheckClientStatus(setting)) ? online : offline;
-                
+
                 dataGrid.Items.Add(new managerData
                 {
                     status = managerClientStatus,
