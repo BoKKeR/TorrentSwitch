@@ -6,6 +6,7 @@ using TorrentSwitch.managers;
 using TorrentSwitch.torrentClients;
 using Settings = TorrentSwitch.torrentClients.Settings;
 using System.Threading.Tasks;
+using TorrentSwitch.Window;
 
 namespace TorrentSwitch
 {
@@ -33,9 +34,15 @@ namespace TorrentSwitch
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void client_button(object sender, RoutedEventArgs e)
+        private void clientButton(object sender, RoutedEventArgs e)
         {
-            ClientWindow setWin = new ClientWindow();
+            ClientWindow clientWin= new ClientWindow();
+            clientWin.ShowDialog();
+        }
+
+        private void settingsButton(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow setWin = new SettingsWindow();
             setWin.ShowDialog();
         }
 

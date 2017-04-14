@@ -14,7 +14,7 @@
         Title="Add client" Height="316.041" Width="370" WindowStartupLocation="CenterOwner">
     <Grid>
         <Button x:Name="button" HorizontalAlignment="Left" Margin="14,251,0,0" VerticalAlignment="Top" Width="336" Content="Add" RenderTransformOrigin="0.529,-2.046" Click="button_Click" Height="24"/>
-        <ComboBox x:Name="type_comboBox" HorizontalAlignment="Left" Margin="71,5,0,0" VerticalAlignment="Top" Width="279" IsReadOnly="True" SelectionChanged="type_comboBox_SelectedItemChanged">
+        <ComboBox x:Name="type_comboBox" HorizontalAlignment="Left" Margin="71,5,0,0" VerticalAlignment="Top" Width="279" IsReadOnly="True" SelectionChanged="type_comboBox_SelectedItemChanged" AutomationProperties.IsRequiredForForm="True">
             <ComboBoxItem x:Name="uTorrent" Content="uTorrent" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Deluge" Content="Deluge" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem x:Name="Transmission" Content="Transmission" HorizontalAlignment="Left" Width="118"/>

@@ -26,7 +26,8 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="Clients" Click="client_button" />
+            <Button Content="Clients" Click="clientButton" />
+            <Button Content="Settings" Click="settingsButton" />
 
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
