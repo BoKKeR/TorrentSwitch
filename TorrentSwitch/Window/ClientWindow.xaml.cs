@@ -4,6 +4,7 @@ using System.Windows.Media.Imaging;
 using MahApps.Metro.Controls;
 using TorrentSwitch.torrentClients;
 using System.Threading.Tasks;
+using TorrentSwitch.managers;
 
 namespace TorrentSwitch
 {
@@ -27,28 +28,37 @@ namespace TorrentSwitch
         {
             switch (setting.ManagerClientType)
             {
-
+                //Needs refactoring
                 case ClientType.uTorrent:
                     {
-                        return managers.UTorrent.CheckStatus(setting);
+                        managers.UTorrent utorrent = new managers.UTorrent();
+                        return utorrent.CheckStatus(setting);
                     }
 
                 case ClientType.Deluge:
                     {
-                        return managers.Deluge.CheckStatus(setting);
+                        managers.Deluge deluge = new managers.Deluge();
+                        return deluge.CheckStatus(setting);
                     }
                     
                 case ClientType.Transmission:
                     {
-                        return managers.Transmission.CheckStatus(setting);
+                        managers.Transmission transmission = new Transmission();
+                        return transmission.CheckStatus(setting);
                     }
                 case ClientType.Qbittorrent:
                     {
                         return managers.Qbittorrent.CheckStatus(setting);
                     }
+                case ClientType.Vuze:
+                    {
+                        managers.Vuze vuze = new Vuze();
+                        return vuze.CheckStatus(setting);
+                    }
                 default:
                     {
-                        return managers.UTorrent.CheckStatus(setting);
+                        managers.UTorrent utorrent = new managers.UTorrent();
+                        return utorrent.CheckStatus(setting);
                     }
             }
         }
@@ -61,7 +71,7 @@ namespace TorrentSwitch
 
             BitmapImage online = new BitmapImage(new Uri("/Image/online.png", UriKind.Relative));
             BitmapImage offline = new BitmapImage(new Uri("/Image/offline.png", UriKind.Relative));
-
+            //Async call would be appreciated here maybe even checking the status in the background before the window is active:
             foreach (var setting in torrentClients.client.users)
             {
 

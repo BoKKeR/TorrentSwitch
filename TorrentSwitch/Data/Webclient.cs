@@ -35,6 +35,7 @@ namespace TorrentSwitch
         {
             WebRequest request = base.GetWebRequest(address);
             HttpWebRequest webRequest = request as HttpWebRequest;
+            webRequest.Timeout = 4 * 1000; //Timout set for 4 seconds
             if (webRequest != null)
             {
                 webRequest.CookieContainer = m_container;

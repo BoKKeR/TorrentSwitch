@@ -53,6 +53,12 @@ namespace TorrentSwitch.windows
                         port_textBox.Text = "";
                     }
                     break;
+
+                case "Vuze":
+                    {
+                        port_textBox.Text = "9091";
+                    }
+                    break;
             }
         }
         internal bool ValidateFields()

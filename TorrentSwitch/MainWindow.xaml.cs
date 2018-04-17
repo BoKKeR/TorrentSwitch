@@ -16,6 +16,10 @@ namespace TorrentSwitch
     /// 
     public partial class MainWindow : MetroWindow
     {
+        managers.Deluge deluge = new managers.Deluge();
+        managers.Transmission transmission = new managers.Transmission();
+        managers.UTorrent uTorrent = new managers.UTorrent();
+        managers.Vuze vuze  = new managers.Vuze();
 
         public static MainWindow _mainWindow;
 
@@ -40,11 +44,6 @@ namespace TorrentSwitch
             clientWin.ShowDialog();
         }
 
-        private void settingsButton(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow setWin = new SettingsWindow();
-            setWin.ShowDialog();
-        }
 
         #region dataGrid managment
 
@@ -84,7 +83,7 @@ namespace TorrentSwitch
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void remove_me(object sender, RoutedEventArgs e)
+        private void removeMe(object sender, RoutedEventArgs e)
         {
             dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
         }
@@ -100,29 +99,30 @@ namespace TorrentSwitch
         public async void sendTorrent(object sender, RoutedEventArgs e)
         {
             TorrentData TorrentDataFromRow = (TorrentData)dataGrid.SelectedItems[0];
-
+            
             string actualClient = dataGrid.CurrentColumn.Header.ToString();
             string magnet = TorrentDataFromRow.Magnet;
 
             Settings clientSettings = client.GetByAlias(actualClient);
             ClientType currentType = clientSettings.ManagerClientType;
+
             switch (currentType)
             {
                 case ClientType.uTorrent:
-                    if (await Task.Run(() => managers.UTorrent.SendMagnetURI(clientSettings, magnet)))
+                    if (await Task.Run(() => uTorrent.SendMagnetURI(clientSettings, magnet)))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
                     else
                     {
-                        //change color to red
+                        
                     }
                     break;
 
                 case ClientType.Deluge:
-
-                    if (await Task.Run(() => managers.Deluge.SendMagnetURI(clientSettings, magnet)))
+                    if (await Task.Run(() => deluge.SendMagnetURI(clientSettings, magnet)))
                     {
+                        dataGrid.RowBackground = Brushes.Yellow;
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
                     else
@@ -132,7 +132,7 @@ namespace TorrentSwitch
                     break;
 
                 case ClientType.Transmission:
-                    if (await Task.Run(() => managers.Transmission.SendMagnetURI(clientSettings, magnet)))
+                    if (await Task.Run(() => transmission.SendMagnetURI(clientSettings, magnet)))
                     {
                         dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
                     }
@@ -153,6 +153,17 @@ namespace TorrentSwitch
                         //change color to red
                     }
                     break;
+
+                case ClientType.Vuze:
+                    if (await Task.Run(() => vuze.SendMagnetURI(clientSettings, magnet)))
+                    {
+                        dataGrid.Items.RemoveAt(dataGrid.SelectedIndex);
+                    }
+                    else
+                    {
+                        //change color to red
+                    }
+                    break;
             }
         }
 
@@ -165,9 +176,9 @@ namespace TorrentSwitch
         }
 
 
-        #endregion
+#endregion
 
-        #region torrent managment  
+#region torrent managment  
 
 
 
@@ -207,6 +218,6 @@ namespace TorrentSwitch
                     logic.dataGrid.LoadTarget(torrentFile);
             }
         }
-        #endregion
+#endregion
     }
 }

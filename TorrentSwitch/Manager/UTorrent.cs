@@ -43,7 +43,7 @@ namespace TorrentSwitch.managers
             token = "&token=" + token;
             return token;
         }
-        public static bool SendMagnetURI(Settings currentClient, string magnet)
+        public bool SendMagnetURI(Settings currentClient, string magnet)
         {
             baseUrl(currentClient);
 
@@ -63,7 +63,7 @@ namespace TorrentSwitch.managers
             return true;
         }
 
-        public static bool CheckStatus(Settings currentClient)
+        public bool CheckStatus(Settings currentClient)
         {
 
             baseUrl(currentClient);

@@ -85,7 +85,7 @@ namespace TorrentSwitch.managers
             return token;
         }
 
-        public static bool SendMagnetURI(Settings currentClient, string magnet)
+        public bool SendMagnetURI(Settings currentClient, string magnet)
         {
             getURL(currentClient);
             initializeWebClient(currentClient);
@@ -103,7 +103,7 @@ namespace TorrentSwitch.managers
         //    string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
         //}
 
-        public static bool CheckStatus(Settings currentClient)
+        public bool CheckStatus(Settings currentClient)
         {
             getURL(currentClient);
             initializeWebClient(currentClient);

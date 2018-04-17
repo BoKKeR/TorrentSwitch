@@ -83,6 +83,7 @@ namespace TorrentSwitch.torrentClients
         uTorrent,
         Deluge,
         Transmission,
-        Qbittorrent
+        Qbittorrent,
+        Vuze
     }
 }

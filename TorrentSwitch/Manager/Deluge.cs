@@ -12,22 +12,25 @@ namespace TorrentSwitch.managers
 {
     class Deluge
     {
+        private string URL { get; set; }
         private static CookieAwareWebClient webclient { get; set; }
-        private static string URL { get; set; }
 
-        private static void initializeWebClient()
+        private void initializeWebClient()
         {
             webclient = new CookieAwareWebClient();
             webclient.Encoding = Encoding.UTF8;
+
+        private void setContentType()
+        {
             webclient.Headers.Set("content-type", "application/json");
         }
 
-        private static void getURL(Settings currentClient)
+        private void getURL(Settings currentClient)
         {
             URL = "http://" + currentClient.hostname + ":" + currentClient.port + "/json";
         }
 
-        private static byte[] buildRequest(string method, string parameter, string label)
+        private byte[] buildRequest(string method, string parameter, string label)
         {
             JArray jarrayObj = new JArray();
             jarrayObj.Add(parameter);
@@ -55,10 +58,17 @@ namespace TorrentSwitch.managers
 
 
 
-        private static byte[] sendRequest(string method, string parameter, string label = "") =>
-           (webclient.UploadData(URL, "POST", buildRequest(method, parameter, label)));
+        private byte[] sendRequest(string method, string parameter, string label = "")
+        {
+            setContentType();
+            byte[] requestResponse = webclient.UploadData(URL, "POST", buildRequest(method, parameter, label));
 
-        private static string responseToString(byte[] response)
+            return requestResponse;
+        }
+        
+
+
+        private string responseToString(byte[] response)
         {
             MemoryStream output = new MemoryStream();
 
@@ -71,11 +81,11 @@ namespace TorrentSwitch.managers
             return JsonResponse;
         }
 
-        public static bool SendMagnetURI(Settings currentClient, string magnet)
+        public bool SendMagnetURI(Settings currentClient, string magnet)
         {
             initializeWebClient();
             getURL(currentClient);
-            
+
             try
             {
                 // Authorization
@@ -89,44 +99,20 @@ namespace TorrentSwitch.managers
             string addingTorrent = responseToString(sendRequest("core.add_torrent_magnet", magnet));
             if (!string.IsNullOrEmpty(currentClient.label))
             {
-                // Check for label -NOT FINISHED      
-
-
                 // Set label for torrent
                 setLabel(currentClient.label, magnet);
             }
 
             return true;
         }
-        private static void setLabel(string label, string magnet)
+        private void setLabel(string label, string magnet)
         {
-
             string hash = logic.TorrentHandler.MagnetToHash(magnet);
             string settingLabel = responseToString(sendRequest("label.set_torrent", hash, label));
 
         }
-        //private static void CheckForLabel(string label)
-        //{
-        //    string getLabels = ResponseToString(SendRequest("label.get_labels", "movie", true));
-        //    if ()
-        //    {
 
-        //        CreateLabel(label);
-        //    }
-        //    else
-        //    {
-
-        //    }
-
-        //}
-
-        //private static void CreateLabel(string label)
-        //{
-        //    label = "aaa";
-        //    string labelResponse = ResponseToString(SendRequest("label.add", label));
-        //}
-
-        public static bool CheckStatus(Settings currentClient)
+        public bool CheckStatus(Settings currentClient)
         {
             initializeWebClient();
             getURL(currentClient);

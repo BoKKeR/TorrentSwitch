@@ -17,17 +17,16 @@
         
         >
 
-    <Controls:MetroWindow.Flyouts>
+    <!--<Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
             <Controls:Flyout Position="Right" AreAnimationsEnabled="True" Header="Settings" IsOpen="{Binding IsSettingsFlyoutOpen, Mode=TwoWay}">
             </Controls:Flyout>
         </Controls:FlyoutsControl>
-    </Controls:MetroWindow.Flyouts>
+    </Controls:MetroWindow.Flyouts>-->
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Content="Clients" Click="clientButton" />
-            <Button Content="Settings" Click="settingsButton" />
 
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
@@ -49,7 +48,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button  Click="remove_me" Content="[X]"/>
+                                <Button  Click="removeMe" Content="[X]"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -59,7 +58,7 @@
                     <DataGridTemplateColumn Visibility="Hidden">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="remove_me" Content="2"/>
+                                <Button Click="removeMe" Content="2"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
