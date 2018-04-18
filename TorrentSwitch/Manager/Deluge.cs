@@ -19,6 +19,7 @@ namespace TorrentSwitch.managers
         {
             webclient = new CookieAwareWebClient();
             webclient.Encoding = Encoding.UTF8;
+        }
 
         private void setContentType()
         {
